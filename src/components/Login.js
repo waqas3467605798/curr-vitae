@@ -169,12 +169,12 @@ class LoginForm extends Component{
  
 
 
-              <br/><br/>
+              {/* <br/><br/>
 <div className='bottomLine'> 
 Prepared By: Waqas Saleem <br/>
 Easy Accounts Management System<br/>
 Contact: 0346-7605798 Email: waqas_mba86@yahoo.com
-</div>
+</div> */}
 
 
              </div>

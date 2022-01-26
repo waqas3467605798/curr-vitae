@@ -89,11 +89,11 @@ class DocumentsToBeUpload extends Component{
       this.state = {
       userEmail:null,
       user:null,
-      image:null,
-      url:'',
-      imageTitle:'',
-      savedImgObjects: [],
-      plzWait:false
+      // image:null,
+      // url:'',
+      // imageTitle:'',
+      // savedImgObjects: [],
+      // plzWait:false
       }
   }
 
@@ -109,19 +109,7 @@ class DocumentsToBeUpload extends Component{
     rej('Operation Failed: Data From Firebase does not push in state successfully')
   } )
   dataPushPromise.then(()=>{
-    var pushPromise = new Promise((res,rej)=>{
-      var obj = [];
-      firebase.database().ref('myImages'+this.state.user).on('child_added' , (data)=> { 
-        obj.push(data.val())
-      }  )
-      res(obj);
-      rej('Operation Failed');
-    })
-    pushPromise.then((ob)=>{
-      this.setState({savedImgObjects:ob})
-    },(er)=>{
-      alert(er)
-    })
+    
 
 
   },(err)=>{
@@ -177,75 +165,75 @@ class DocumentsToBeUpload extends Component{
 
 
 
-  handleChange = (e)=>{
-// console.log(e.target.files[0])
+//   handleChange = (e)=>{
+// // console.log(e.target.files[0])
 
-if(e.target.files[0]){
-  this.setState({image:e.target.files[0]})
-}
+// if(e.target.files[0]){
+//   this.setState({image:e.target.files[0]})
+// }
 
-  } 
-
-
-  imgTitleChangeHandle = (e)=>{
-this.setState({[e.target.name]: e.target.value})
-  }
+//   } 
 
 
+//   imgTitleChangeHandle = (e)=>{
+// this.setState({[e.target.name]: e.target.value})
+//   }
 
-  upLoadImg =()=>{
 
-    if(this.state.image === null){
-      alert('No File choose')
-    }else{
 
-    if(this.state.savedImgObjects.find(  (itm)=>{return itm.imageName === this.state.image.name}  ) ){ 
-     alert('This image already exisit in Database, Please change your image Name')
-    this.setState({imageTitle:''})
-    }else{
+//   upLoadImg =()=>{
 
-if(this.state.imageTitle ===''){
-  alert('Input Filed Cannot be emptpy')
-}else{
+//     if(this.state.image === null){
+//       alert('No File choose')
+//     }else{
 
-const upLoadTask = firebase.storage().ref(`myImages${this.state.user}/${this.state.image.name}`).put(this.state.image)
+//     if(this.state.savedImgObjects.find(  (itm)=>{return itm.imageName === this.state.image.name}  ) ){ 
+//      alert('This image already exisit in Database, Please change your image Name')
+//     this.setState({imageTitle:''})
+//     }else{
+
+// if(this.state.imageTitle ===''){
+//   alert('Input Filed Cannot be emptpy')
+// }else{
+
+// const upLoadTask = firebase.storage().ref(`myImages${this.state.user}/${this.state.image.name}`).put(this.state.image)
  
-upLoadTask.on('state_changed' ,
- (snapshot)=>{this.setState({plzWait:true})} ,
-  (error)=>{ alert(error)} , 
-  ()=>{
+// upLoadTask.on('state_changed' ,
+//  (snapshot)=>{this.setState({plzWait:true})} ,
+//   (error)=>{ alert(error)} , 
+//   ()=>{
     
-    firebase.storage().ref(`myImages${this.state.user}/${this.state.image.name}`).getDownloadURL().then(
+//     firebase.storage().ref(`myImages${this.state.user}/${this.state.image.name}`).getDownloadURL().then(
    
-      (url) =>{
+//       (url) =>{
 
         
-      // console.log(url)
-      var obj ={}
-      obj.imageTitle = this.state.imageTitle.replace(/  +/g, ' ').trim();
-      obj.imgUrl = url;
-      obj.imageName = this.state.image.name
-      var key = firebase.database().ref('myImages'+this.state.user).push().key
-      obj.key = key;
-      firebase.database().ref('myImages'+this.state.user).child(key).set(obj)
-      this.state.savedImgObjects.push(obj)
+//       // console.log(url)
+//       var obj ={}
+//       obj.imageTitle = this.state.imageTitle.replace(/  +/g, ' ').trim();
+//       obj.imgUrl = url;
+//       obj.imageName = this.state.image.name
+//       var key = firebase.database().ref('myImages'+this.state.user).push().key
+//       obj.key = key;
+//       firebase.database().ref('myImages'+this.state.user).child(key).set(obj)
+//       this.state.savedImgObjects.push(obj)
       
       
-      alert('successfully saved')
-      this.setState({plzWait:false})
-      this.setState({imageTitle:''})
-      // console.log(this.state.savedImgObjects)
+//       alert('successfully saved')
+//       this.setState({plzWait:false})
+//       this.setState({imageTitle:''})
+//       // console.log(this.state.savedImgObjects)
         
-      }
-       )
-  }
-  );
-    }
+//       }
+//        )
+//   }
+//   );
+//     }
 
-    }
-}
+//     }
+// }
 
-  }
+//   }
 
 
 
@@ -261,12 +249,12 @@ return (
 {/* <span style={{fontSize:'12px'}}><b style={{color:'green',marginLeft:'30px'}}>{this.state.userEmail}</b> / {navigator.onLine===true ? <span style={{color:'green'}}>You are online</span> : <span style={{color:'red'}}>You are OffLine</span>}</span> */}
 <br/><br/>
 
-<input type='file' onChange={this.handleChange} /> <br/>
+{/* <input type='file' onChange={this.handleChange} /> <br/>
 <input type='text' onChange={this.imgTitleChangeHandle} value={this.state.imageTitle} name ='imageTitle' placeholder='Image/File Title Name'/> <br/>
 
 <button className="waves-effect waves-dark btn" onClick={this.upLoadImg}>Up Load File</button>
 
-<p><b style={{color:'red', fontSize:'20px'}}> {this.state.plzWait === true ? 'Please wait, File is being Uploaded' : ''} </b> </p>
+<p><b style={{color:'red', fontSize:'20px'}}> {this.state.plzWait === true ? 'Please wait, File is being Uploaded' : ''} </b> </p> */}
 
 
 

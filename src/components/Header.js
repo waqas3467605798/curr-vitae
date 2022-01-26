@@ -36,9 +36,9 @@ import {Link} from 'react-router-dom'
 
       <div id='div2'>
      
-     <Link to='/' style={{textDecoration:'none', marginRight:'22px'}} > <b>Intro/Logout</b> </Link>
+     <Link to='/' style={{textDecoration:'none', marginRight:'22px'}} > <b>Up-Load</b> </Link>
      {/* <Link to='/AccountsRecord' style={{textDecoration:'none', marginRight:'22px'}} > <b>Accounts-Record</b> </Link> */}
-     <Link to='/MyDocs' style={{textDecoration:'none', marginRight:'22px'}} > <b>My Documents</b> </Link>
+     <Link to='/MyDocs' style={{textDecoration:'none', marginRight:'22px'}} > <b>CV View</b> </Link>
      
      
       </div>
