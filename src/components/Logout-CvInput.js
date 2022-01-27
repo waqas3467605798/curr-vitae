@@ -10,7 +10,7 @@ import firebase from './Fire'
       this.state ={
         userEmail:null,
         user:null,
-        
+        image:''
       }
 
   }
@@ -47,9 +47,19 @@ import firebase from './Fire'
 }
 
 
+changeHandler = (e)=>{
+this.setState({[e.target.name]: e.target.value})
+
+console.log(this.state.image)
+}
 
 
 
+saveImage = ()=>{
+firebase.database().ref('myImage').set({imageLink: this.state.image})
+alert('Image save successfully')
+this.setState({image:''})
+}
 
 
 
@@ -70,11 +80,11 @@ import firebase from './Fire'
          <div className='container' style={{textAlign:'right'}}> <button className="waves-effect waves-dark btn red" onClick={this.Logout}>Logout</button> </div> 
          
          
-
-
-
-
-         CONTENT
+          <div className='container'>
+          <input type='text' name='image' value={this.state.image} onChange={this.changeHandler} placeholder='Image link'/>
+          <button onClick={this.saveImage}> Save </button>
+          </div>
+         
 
 
 

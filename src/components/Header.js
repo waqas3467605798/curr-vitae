@@ -31,14 +31,14 @@ import {Link} from 'react-router-dom'
     <div>
     
       <div id='div1'> 
-      My Documents 
+      Manage Curriculum Vitae
       </div>
 
       <div id='div2'>
      
-     <Link to='/' style={{textDecoration:'none', marginRight:'22px'}} > <b>Up-Load</b> </Link>
+     <Link to='/' style={{textDecoration:'none', marginRight:'22px'}} > <b>CV-Input</b> </Link>
      {/* <Link to='/AccountsRecord' style={{textDecoration:'none', marginRight:'22px'}} > <b>Accounts-Record</b> </Link> */}
-     <Link to='/MyDocs' style={{textDecoration:'none', marginRight:'22px'}} > <b>CV View</b> </Link>
+     <Link to='/MyDocs' style={{textDecoration:'none', marginRight:'22px'}} > <b>View-CV</b> </Link>
      
      
       </div>

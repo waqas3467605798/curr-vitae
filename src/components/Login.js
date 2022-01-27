@@ -127,10 +127,10 @@ class LoginForm extends Component{
          return (
              <div>
  
- <div id='div1'> 
+ {/* <div id='div1'> 
       My Documents
-      </div>
-      <span style={{fontSize:'12px'}}>{navigator.onLine===true ? <span style={{color:'green'}}>You are online</span> : <span style={{color:'red'}}>You are OffLine</span>}</span>
+      </div> */}
+      {/* <span style={{fontSize:'12px'}}>{navigator.onLine===true ? <span style={{color:'green'}}>You are online</span> : <span style={{color:'red'}}>You are OffLine</span>}</span> */}
 <br/><br/>
 
 <h2 className='headings' style={{textAlign:'center',fontSize:'30px'}}>Login Here</h2>
