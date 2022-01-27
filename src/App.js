@@ -23,13 +23,13 @@ import {BrowserRouter, Route} from 'react-router-dom'
       <Route path='/MyDocs' component={MyDocs}/>
       
 
-<br/><br/>
+{/* <br/><br/>
 <div className='bottomLine'> 
 Prepared By: Waqas Saleem <br/>
 My Documents Management System<br/>
 Contact: 0346-7605798 Email: waqas_mba86@yahoo.com
-</div>
-
+</div> */}
+<br/><br/><br/>
 
 
     </div>

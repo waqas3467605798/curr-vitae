@@ -12,25 +12,41 @@ class MyDocs extends Component{
     this.state = {
       userEmail:null,
       image:'',
-      change:false
+      objective:'',
+      personalInfoArray:[]
      
     }
   }
 
 
 async componentDidMount(){
-    var userId = firebase.auth().currentUser.uid;
-    var userEmail = firebase.auth().currentUser.email
-    this.setState({user:userId,userEmail:userEmail})
+    // var userId = firebase.auth().currentUser.uid;
+    // var userEmail = firebase.auth().currentUser.email
+    // this.setState({user:userId,userEmail:userEmail})
 
 
 
 firebase.database().ref('myImage').on('child_added' , (data)=> { 
   this.setState({image:data.val()})
     //  this.state.image.push(data.val())
-
-    console.log(data.val())
     }  )
+
+
+
+firebase.database().ref('objective').on('child_added' , (data)=> { 
+  this.setState({objective:data.val()})
+    //  this.state.image.push(data.val())
+    }  )
+
+
+
+
+firebase.database().ref('personalInfo').on('child_added' , (data)=> { 
+  // this.setState({objective:data.val()})
+     this.state.personalInfoArray.push(data.val())
+    }  )
+
+
 
   }
 
@@ -47,8 +63,17 @@ firebase.database().ref('myImage').on('child_added' , (data)=> {
         <div className='container'>
         
         
-        <img src={this.state.image} alt='pic here' width='200' height='170'/>
-        
+        <img src={this.state.image} alt='Picture Loading.....' width='200' height='170'/>
+      <br/>
+        <span style={{color:'blue'}}><b>Obective</b></span>
+        <p>{this.state.objective}</p>
+
+
+<span style={{color:'blue'}}><b>Personal Information</b></span>
+        <table><tbody>{this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.head}</td><td>{item.ans}</td></tr>})}</tbody></table>
+
+
+
         </div>
 </div>
       );
