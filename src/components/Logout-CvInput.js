@@ -14,7 +14,11 @@ import firebase from './Fire'
         objective:'',
         personalInfoHead:'',
         personalInfoAns:'',
-        personalInfoOrder:''
+        personalInfoOrder:'',
+        degree:'',
+        university:'',
+        grade:'',
+        educationInfoOrder:''
       }
 
   }
@@ -97,6 +101,30 @@ alert('Information saved successfully')
 
 
 
+
+
+
+saveEducationInfo = ()=>{
+  var object = {}
+  // object.[this.state.personalInfoHead] = this.state.personalInfoAns;
+  object.degree = this.state.degree;
+  object.university = this.state.university;
+  object.grade = this.state.grade;
+  object.order = this.state.educationInfoOrder;
+  
+  var key = firebase.database().ref('educationInfo').push().key
+  object.key = key;
+        
+  firebase.database().ref('educationInfo').child(key).set(object)
+  
+  
+  alert('Information saved successfully')
+    this.setState({degree:'', university:'', grade:'', educationInfoOrder:''})
+}
+
+
+
+
     Logout= ()=>{
         firebase.auth().signOut();
     }
@@ -127,6 +155,19 @@ alert('Information saved successfully')
           <button onClick={this.savePersonalInfo}> Save </button>
 
           
+
+
+          <br/><br/><br/>
+          <span style={{color:'blue'}}><b>Educational Information</b></span>
+          <input type='text' name='degree' value={this.state.degree} onChange={this.changeHandler} placeholder='Certificate / Degree Name'/>
+          <input type='text' name='university' value={this.state.university} onChange={this.changeHandler} placeholder='University / Board'/>
+          <input type='text' name='grade' value={this.state.grade} onChange={this.changeHandler} placeholder='Grade / Percentage'/>
+          <input type='Number' name='educationInfoOrder' value={this.state.educationInfoOrder} onChange={this.changeHandler} placeholder='Order'/>
+          <button onClick={this.saveEducationInfo}> Save </button>
+
+
+
+
           
           </div>
          

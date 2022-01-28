@@ -13,7 +13,8 @@ class MyDocs extends Component{
       userEmail:null,
       image:'',
       objective:'',
-      personalInfoArray:[]
+      personalInfoArray:[],
+      educationInfoArray:[]
      
     }
   }
@@ -48,6 +49,14 @@ firebase.database().ref('personalInfo').on('child_added' , (data)=> {
 
 
 
+
+
+firebase.database().ref('educationInfo').on('child_added' , (data)=> { 
+  // this.setState({objective:data.val()})
+     this.state.educationInfoArray.push(data.val())
+    }  )
+
+
   }
 
 
@@ -69,8 +78,13 @@ firebase.database().ref('personalInfo').on('child_added' , (data)=> {
         <p>{this.state.objective}</p>
 
 
-<span style={{color:'blue'}}><b>Personal Information</b></span>
+        <span style={{color:'blue'}}><b>Personal Information</b></span>
         <table><tbody>{this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.head}</td><td>{item.ans}</td></tr>})}</tbody></table>
+
+
+
+<span style={{color:'blue'}}><b>Educational Information</b></span><br/>
+{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <span key={ind}>{item.order}-{item.degree}<br/>{item.university}<br/>{item.grade}<hr/></span>})}
 
 
 
