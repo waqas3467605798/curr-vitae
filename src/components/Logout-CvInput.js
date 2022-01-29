@@ -18,7 +18,8 @@ import firebase from './Fire'
         degree:'',
         university:'',
         grade:'',
-        educationInfoOrder:''
+        educationInfoOrder:'',
+        viewDegree:''
       }
 
   }
@@ -111,6 +112,8 @@ saveEducationInfo = ()=>{
   object.university = this.state.university;
   object.grade = this.state.grade;
   object.order = this.state.educationInfoOrder;
+  object.degreeImageLink = this.state.viewDegree;
+
   
   var key = firebase.database().ref('educationInfo').push().key
   object.key = key;
@@ -119,7 +122,7 @@ saveEducationInfo = ()=>{
   
   
   alert('Information saved successfully')
-    this.setState({degree:'', university:'', grade:'', educationInfoOrder:''})
+    this.setState({degree:'', university:'', grade:'', viewDegree:'', educationInfoOrder:''})
 }
 
 
@@ -162,6 +165,7 @@ saveEducationInfo = ()=>{
           <input type='text' name='degree' value={this.state.degree} onChange={this.changeHandler} placeholder='Certificate / Degree Name'/>
           <input type='text' name='university' value={this.state.university} onChange={this.changeHandler} placeholder='University / Board'/>
           <input type='text' name='grade' value={this.state.grade} onChange={this.changeHandler} placeholder='Grade / Percentage'/>
+          <input type='text' name='viewDegree' value={this.state.viewDegree} onChange={this.changeHandler} placeholder='Image Link of your degree'/>
           <input type='Number' name='educationInfoOrder' value={this.state.educationInfoOrder} onChange={this.changeHandler} placeholder='Order'/>
           <button onClick={this.saveEducationInfo}> Save </button>
 

@@ -14,7 +14,8 @@ class MyDocs extends Component{
       image:'',
       objective:'',
       personalInfoArray:[],
-      educationInfoArray:[]
+      educationInfoArray:[],
+      
      
     }
   }
@@ -24,8 +25,6 @@ async componentDidMount(){
     // var userId = firebase.auth().currentUser.uid;
     // var userEmail = firebase.auth().currentUser.email
     // this.setState({user:userId,userEmail:userEmail})
-
-
 
 firebase.database().ref('myImage').on('child_added' , (data)=> { 
   this.setState({image:data.val()})
@@ -57,6 +56,8 @@ firebase.database().ref('educationInfo').on('child_added' , (data)=> {
     }  )
 
 
+
+
   }
 
 
@@ -73,7 +74,7 @@ firebase.database().ref('educationInfo').on('child_added' , (data)=> {
         
         
         <img src={this.state.image} alt='Picture Loading.....' width='200' height='170'/>
-      <br/>
+         <br/>
         <span style={{color:'blue'}}><b>Obective</b></span>
         <p>{this.state.objective}</p>
 
@@ -83,12 +84,18 @@ firebase.database().ref('educationInfo').on('child_added' , (data)=> {
 
 
 
-<span style={{color:'blue'}}><b>Educational Information</b></span><br/>
-{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <span key={ind}>{item.order}-{item.degree}<br/>{item.university}<br/>{item.grade}<hr/></span>})}
-
+      <span style={{color:'blue'}}><b>Educational Information</b></span><br/>
+      <table><tbody>{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.degree}</td><td>{item.university}</td><td>{item.grade}</td><td> <a href={item.degreeImageLink} target='_blank'> View Degree </a> </td></tr>})}</tbody></table>
 
 
         </div>
+
+
+
+
+
+
+
 </div>
       );
     }
