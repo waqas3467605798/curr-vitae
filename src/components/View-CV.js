@@ -15,16 +15,21 @@ class MyDocs extends Component{
       objective:'',
       personalInfoArray:[],
       educationInfoArray:[],
+      pageLoading:false
       
      
     }
   }
 
-
-async componentDidMount(){
+  // async
+  // componentDidMount
+  // componentWillMount
+  async componentDidMount(){
     // var userId = firebase.auth().currentUser.uid;
     // var userEmail = firebase.auth().currentUser.email
     // this.setState({user:userId,userEmail:userEmail})
+var dataPromise = new Promise( (res,rej)=>{
+
 
 firebase.database().ref('myImage').on('child_added' , (data)=> { 
   this.setState({image:data.val()})
@@ -41,9 +46,16 @@ firebase.database().ref('objective').on('child_added' , (data)=> {
 
 
 
+var dataObject = {
+  personalInfo:[],
+  educationInfo:[],
+
+}
+
+
 firebase.database().ref('personalInfo').on('child_added' , (data)=> { 
-  // this.setState({objective:data.val()})
-     this.state.personalInfoArray.push(data.val())
+    //  this.state.personalInfoArray.push(data.val())
+     dataObject.personalInfo.push(data.val())
     }  )
 
 
@@ -51,9 +63,37 @@ firebase.database().ref('personalInfo').on('child_added' , (data)=> {
 
 
 firebase.database().ref('educationInfo').on('child_added' , (data)=> { 
-  // this.setState({objective:data.val()})
-     this.state.educationInfoArray.push(data.val())
+    //  this.state.educationInfoArray.push(data.val())
+     dataObject.educationInfo.push(data.val())
     }  )
+
+res(dataObject)
+
+
+
+
+} )
+
+
+
+dataPromise.then( (dataObj)=>{
+this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo})
+
+
+
+setTimeout(() => {
+  this.setState({pageLoading:true})
+}, 2000);
+
+
+
+
+} )
+
+
+
+
+
 
 
 
@@ -70,7 +110,7 @@ firebase.database().ref('educationInfo').on('child_added' , (data)=> {
       return(
         <div>
           {/* <span style={{fontSize:'12px'}}><b style={{color:'green',marginLeft:'30px'}}>{this.state.userEmail}</b> / {navigator.onLine===true ? <span style={{color:'green'}}>You are online</span> : <span style={{color:'red'}}>You are OffLine</span>}</span> */}
-        <div className='container'>
+        <div className={this.state.pageLoading===false?'display' : 'container'}>
         
         
         <img src={this.state.image} alt='Picture Loading.....' width='200' height='170'/>
@@ -91,6 +131,10 @@ firebase.database().ref('educationInfo').on('child_added' , (data)=> {
         </div>
 
 
+        {/* below div when page is being loading  */}
+        <div className={this.state.pageLoading===false?'container' : 'display'}>
+        Loading.....
+        </div>
 
 
 
