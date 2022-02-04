@@ -19,7 +19,10 @@ import firebase from './Fire'
         university:'',
         grade:'',
         educationInfoOrder:'',
-        viewDegree:''
+        viewDegree:'',
+        organization:'',
+        designation:'',
+        organizationOrder:''
       }
 
   }
@@ -127,6 +130,26 @@ saveEducationInfo = ()=>{
 
 
 
+saveOrganization = ()=>{
+  var object = {}
+
+  object.organization = this.state.organization;
+  object.designation = this.state.designation;
+  object.order = this.state.organizationOrder;
+
+
+  var key = firebase.database().ref('organization').push().key
+  object.key = key;
+        
+  firebase.database().ref('organization').child(key).set(object)
+
+
+alert('Information saved successfully')
+    this.setState({organization:'', designation:'', order:''})
+
+}
+
+
 
     Logout= ()=>{
         firebase.auth().signOut();
@@ -171,7 +194,12 @@ saveEducationInfo = ()=>{
 
 
 
-
+          <br/><br/><br/>
+          <span style={{color:'blue'}}><b>Organization Name</b></span>
+          <input type='text' name='organization' value={this.state.organization} onChange={this.changeHandler} placeholder='Organization Name'/>
+          <input type='text' name='designation' value={this.state.designation} onChange={this.changeHandler} placeholder='designation'/>
+          <input type='Number' name='organizationOrder' value={this.state.organizationOrder} onChange={this.changeHandler} placeholder='Order'/>
+          <button onClick={this.saveOrganization}> Save </button>
           
           </div>
          
