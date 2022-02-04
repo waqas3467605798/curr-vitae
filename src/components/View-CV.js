@@ -15,7 +15,11 @@ class MyDocs extends Component{
       objective:'',
       personalInfoArray:[],
       educationInfoArray:[],
-      pageLoading:false
+      // pageLoading:false,
+      objectiveHeading:'Loading....',
+      personalInfoHeading:'Loading....',
+      educationInfoHeading:'Loading....',
+      pageRefresh:1
       
      
     }
@@ -82,7 +86,9 @@ this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataOb
 
 
 setTimeout(() => {
-  this.setState({pageLoading:true})
+  this.setState({objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information'})
+
+
 }, 2000);
 
 
@@ -96,13 +102,25 @@ setTimeout(() => {
 
 
 
+const inteId = setInterval(()=>{
+  this.setState({pageRefresh: this.state.pageRefresh+1})
+},1000)
+
+
+setTimeout(() => {
+  clearInterval(inteId);
+}, 20000);
+
+
+
+
 
 
   }
 
 
 
-
+  
 
 
 
@@ -110,31 +128,29 @@ setTimeout(() => {
       return(
         <div>
           {/* <span style={{fontSize:'12px'}}><b style={{color:'green',marginLeft:'30px'}}>{this.state.userEmail}</b> / {navigator.onLine===true ? <span style={{color:'green'}}>You are online</span> : <span style={{color:'red'}}>You are OffLine</span>}</span> */}
-        <div className={this.state.pageLoading===false?'display' : 'container'}>
-        
+        <div className='container'>
+         
+         <p> <span>State is refreshing for</span> {this.state.pageRefresh} <span>Seconds</span></p>
         
         <img src={this.state.image} alt='Picture Loading.....' width='200' height='170'/>
          <br/>
-        <span style={{color:'blue'}}><b>Obective</b></span>
+        <span style={{color:'blue'}}><b>{this.state.objectiveHeading}</b></span>
         <p>{this.state.objective}</p>
 
 
-        <span style={{color:'blue'}}><b>Personal Information</b></span>
+        <span style={{color:'blue'}}><b>{this.state.personalInfoHeading}</b></span>
         <table><tbody>{this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.head}</td><td>{item.ans}</td></tr>})}</tbody></table>
 
 
 
-      <span style={{color:'blue'}}><b>Educational Information</b></span><br/>
+      <span style={{color:'blue'}}><b>{this.state.educationInfoHeading}</b></span><br/>
       <table><tbody>{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.degree}</td><td>{item.university}</td><td>{item.grade}</td><td> <a href={item.degreeImageLink} target='_blank'> View Degree </a> </td></tr>})}</tbody></table>
 
 
         </div>
 
 
-        {/* below div when page is being loading  */}
-        <div className={this.state.pageLoading===false?'container' : 'display'}>
-        Loading.....
-        </div>
+        
 
 
 
