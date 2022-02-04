@@ -19,7 +19,7 @@ class MyDocs extends Component{
       objectiveHeading:'Loading....',
       personalInfoHeading:'Loading....',
       educationInfoHeading:'Loading....',
-      pageRefresh:1
+      pageRefresh:0
       
      
     }
@@ -81,15 +81,29 @@ res(dataObject)
 
 
 dataPromise.then( (dataObj)=>{
-this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo})
+this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo, objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information'})
 
 
 
+
+// below code is only for change in state for 20 seconds.
 setTimeout(() => {
-  this.setState({objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information'})
+  
+
+  const inteId = setInterval(()=>{
+    this.setState({pageRefresh: this.state.pageRefresh+1})
+  },2000)
+  
+  
+  setTimeout(() => {
+    clearInterval(inteId);
+  }, 20000);
 
 
-}, 2000);
+
+}, 1000);
+
+
 
 
 
@@ -100,16 +114,6 @@ setTimeout(() => {
 
 
 
-
-
-const inteId = setInterval(()=>{
-  this.setState({pageRefresh: this.state.pageRefresh+1})
-},1000)
-
-
-setTimeout(() => {
-  clearInterval(inteId);
-}, 20000);
 
 
 
@@ -130,7 +134,7 @@ setTimeout(() => {
           {/* <span style={{fontSize:'12px'}}><b style={{color:'green',marginLeft:'30px'}}>{this.state.userEmail}</b> / {navigator.onLine===true ? <span style={{color:'green'}}>You are online</span> : <span style={{color:'red'}}>You are OffLine</span>}</span> */}
         <div className='container'>
          
-         <p> <span>State is refreshing for</span> {this.state.pageRefresh} <span>Seconds</span></p>
+         <p> <span>State has been refreshed for </span> <b>{this.state.pageRefresh}</b> <span> times</span></p>
         
         <img src={this.state.image} alt='Picture Loading.....' width='200' height='170'/>
          <br/>
