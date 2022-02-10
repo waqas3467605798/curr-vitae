@@ -136,7 +136,7 @@ setTimeout(() => {
          
          <p> <span>State has been refreshed for </span> <b>{this.state.pageRefresh}</b> <span> times</span></p>
         
-        <img src={this.state.image} alt='Picture Loading.....' width='200' height='170'/>
+        <img src={this.state.image} alt='Picture Loading.....' width='200' height='170' id='profile-image'/>
          <br/>
         <span style={{color:'blue'}}><b>{this.state.objectiveHeading}</b></span>
         <p>{this.state.objective}</p>

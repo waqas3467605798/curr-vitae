@@ -22,7 +22,11 @@ import firebase from './Fire'
         viewDegree:'',
         organization:'',
         designation:'',
-        organizationOrder:''
+        organizationOrder:'',
+        organizationArray:[],
+        jd:'',
+        jdOrder:'',
+        pageRefresh:0
       }
 
   }
@@ -39,22 +43,44 @@ import firebase from './Fire'
 
 
   async componentDidMount(){
-    var dataPushPromise = new Promise( (res,rej)=>{
+    // var dataPushPromise = new Promise( (res,rej)=>{
     var userId = firebase.auth().currentUser.uid;
     var userEmail = firebase.auth().currentUser.email
-
     this.setState({user:userId,userEmail:userEmail})
     
-    res()
-    rej('Operation Failed: Data From Firebase does not push in state successfully')
-  } )
-  dataPushPromise.then(()=>{
     
+    firebase.database().ref('organization').on('child_added' , (data)=> { 
+        //  this.state.personalInfoArray.push(data.val())
+         this.state.organizationArray.push(data.val())
+        }  )
 
 
-  },(err)=>{
-    alert(err)
-  })
+
+    // res()
+  // } )
+  // dataPushPromise.then(()=>{
+   
+    
+  // })
+
+  setTimeout(() => {
+  
+
+    const inteId = setInterval(()=>{
+      this.setState({pageRefresh: this.state.pageRefresh+1})
+    },500)
+    
+    
+    setTimeout(() => {
+      clearInterval(inteId);
+    }, 10000);
+  
+  
+  
+  }, 1000);
+
+
+
 
 }
 
@@ -132,10 +158,11 @@ saveEducationInfo = ()=>{
 
 saveOrganization = ()=>{
   var object = {}
-
+  var jd = [{jd:'Job Description', order:0}]
   object.organization = this.state.organization;
   object.designation = this.state.designation;
   object.order = this.state.organizationOrder;
+  object.jobDescription = jd
 
 
   var key = firebase.database().ref('organization').push().key
@@ -145,10 +172,30 @@ saveOrganization = ()=>{
 
 
 alert('Information saved successfully')
-    this.setState({organization:'', designation:'', order:''})
+    this.setState({organization:'', designation:'', organizationOrder:''})
 
 }
 
+
+
+saveJd = ()=>{
+var selectedOrg = document.getElementById('jdOrganization').value
+var orgObject = this.state.organizationArray.find((org)=>{return org.organization === selectedOrg})
+
+var obj = {jd: this.state.jd,
+           order: this.state.jdOrder}
+
+orgObject.jobDescription.push(obj)
+
+
+firebase.database().ref('organization').child(orgObject.key).set(orgObject)
+
+
+alert('added successfully')
+this.setState({jd:'', jdOrder:''})
+// console.log(orgObject)
+
+}
 
 
     Logout= ()=>{
@@ -162,6 +209,10 @@ alert('Information saved successfully')
          <div className='container' style={{textAlign:'right'}}> <button className="waves-effect waves-dark btn red" onClick={this.Logout}>Logout</button> </div> 
          
          
+         <p> <span>State has been refreshed for </span> <b>{this.state.pageRefresh}</b> <span> times</span></p>
+
+
+
           <div className='container'>
             <span style={{color:'blue'}}><b>Image Link</b></span>
           <input type='text' name='image' value={this.state.image} onChange={this.changeHandler} placeholder='Image link'/>
@@ -200,6 +251,16 @@ alert('Information saved successfully')
           <input type='text' name='designation' value={this.state.designation} onChange={this.changeHandler} placeholder='designation'/>
           <input type='Number' name='organizationOrder' value={this.state.organizationOrder} onChange={this.changeHandler} placeholder='Order'/>
           <button onClick={this.saveOrganization}> Save </button>
+          
+          
+          <br/><br/><br/>
+          <span style={{color:'blue'}}><b>Experience - J.D</b></span>
+          <div style={{width:'100%', margin:'auto'}}> <select className='browser-default' id='jdOrganization'>  {this.state.organizationArray.map(  (item,i)=>{ return <option key={i} className='browser-default'>{item.organization}</option>}  )       }   </select> </div> <br/>
+          <input type='text' name='jd' value={this.state.jd} onChange={this.changeHandler} placeholder='Add Job Description'/>
+          <input type='Number' name='jdOrder' value={this.state.jdOrder} onChange={this.changeHandler} placeholder='Order'/>
+          <button onClick={this.saveJd}> Add JD </button>
+          {/* <p>{this.state.organizationArray.map(  (it,ind)=>{return <p>{it.organization}</p>}  )}</p> */}
+          
           
           </div>
          
