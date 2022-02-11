@@ -15,10 +15,12 @@ class MyDocs extends Component{
       objective:'',
       personalInfoArray:[],
       educationInfoArray:[],
+      organizationArray:[],
       // pageLoading:false,
       objectiveHeading:'Loading....',
       personalInfoHeading:'Loading....',
       educationInfoHeading:'Loading....',
+      experience:'Loading....',
       pageRefresh:0
       
      
@@ -53,6 +55,7 @@ firebase.database().ref('objective').on('child_added' , (data)=> {
 var dataObject = {
   personalInfo:[],
   educationInfo:[],
+  organization:[]
 
 }
 
@@ -71,6 +74,14 @@ firebase.database().ref('educationInfo').on('child_added' , (data)=> {
      dataObject.educationInfo.push(data.val())
     }  )
 
+
+
+    firebase.database().ref('organization').on('child_added' , (data)=> { 
+      //  this.state.educationInfoArray.push(data.val())
+       dataObject.organization.push(data.val())
+      }  )
+
+
 res(dataObject)
 
 
@@ -81,7 +92,7 @@ res(dataObject)
 
 
 dataPromise.then( (dataObj)=>{
-this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo, objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information'})
+this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo, organizationArray:dataObj.organization ,  objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information', experience:'Experience Record'})
 
 
 
@@ -151,6 +162,11 @@ setTimeout(() => {
       <table><tbody>{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.degree}</td><td>{item.university}</td><td>{item.grade}</td><td> <a href={item.degreeImageLink} target='_blank'> View Degree </a> </td></tr>})}</tbody></table>
 
 
+
+
+      <span style={{color:'blue'}}><b>{this.state.experience}</b></span><br/>
+      <table><tbody>{this.state.organizationArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.organization}</td><td>{item.designation}</td><td>{item.period}</td> </tr>})}</tbody></table>
+     
         </div>
 
 

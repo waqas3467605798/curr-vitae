@@ -22,6 +22,7 @@ import firebase from './Fire'
         viewDegree:'',
         organization:'',
         designation:'',
+        period:'',
         organizationOrder:'',
         organizationArray:[],
         jd:'',
@@ -161,6 +162,7 @@ saveOrganization = ()=>{
   var jd = [{jd:'Job Description', order:0}]
   object.organization = this.state.organization;
   object.designation = this.state.designation;
+  object.period = this.state.period;
   object.order = this.state.organizationOrder;
   object.jobDescription = jd
 
@@ -249,6 +251,7 @@ this.setState({jd:'', jdOrder:''})
           <span style={{color:'blue'}}><b>Organization Name</b></span>
           <input type='text' name='organization' value={this.state.organization} onChange={this.changeHandler} placeholder='Organization Name'/>
           <input type='text' name='designation' value={this.state.designation} onChange={this.changeHandler} placeholder='designation'/>
+          <input type='text' name='period' value={this.state.period} onChange={this.changeHandler} placeholder='period'/>
           <input type='Number' name='organizationOrder' value={this.state.organizationOrder} onChange={this.changeHandler} placeholder='Order'/>
           <button onClick={this.saveOrganization}> Save </button>
           
