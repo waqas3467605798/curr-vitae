@@ -13,14 +13,17 @@ class MyDocs extends Component{
       userEmail:null,
       image:'',
       objective:'',
+      reference:'',
       personalInfoArray:[],
       educationInfoArray:[],
       organizationArray:[],
+      computerSkillsArray:[],
       // pageLoading:false,
       objectiveHeading:'Loading....',
       personalInfoHeading:'Loading....',
       educationInfoHeading:'Loading....',
       experience:'Loading....',
+      computerSkills:'Loading....',
       pageRefresh:0
       
      
@@ -51,11 +54,18 @@ firebase.database().ref('objective').on('child_added' , (data)=> {
 
 
 
+firebase.database().ref('reference').on('child_added' , (data)=> { 
+  this.setState({reference:data.val()})
+    //  this.state.image.push(data.val())
+    }  )
+
+
 
 var dataObject = {
   personalInfo:[],
   educationInfo:[],
-  organization:[]
+  organization:[],
+  computerSkill:[]
 
 }
 
@@ -82,6 +92,14 @@ firebase.database().ref('educationInfo').on('child_added' , (data)=> {
       }  )
 
 
+
+      firebase.database().ref('computerSkills').on('child_added' , (data)=> { 
+        //  this.state.educationInfoArray.push(data.val())
+         dataObject.computerSkill.push(data.val())
+        }  )
+
+
+
 res(dataObject)
 
 
@@ -92,7 +110,7 @@ res(dataObject)
 
 
 dataPromise.then( (dataObj)=>{
-this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo, organizationArray:dataObj.organization ,  objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information', experience:'Experience Record'})
+this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo, organizationArray:dataObj.organization , computerSkillsArray:dataObj.computerSkill,  objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information', experience:'Experience Record', computerSkills:'Computer/IT Skills'})
 
 
 
@@ -147,7 +165,7 @@ setTimeout(() => {
          
          <p> <span>State has been refreshed for </span> <b>{this.state.pageRefresh}</b> <span> times</span></p>
         
-        <img src={this.state.image} alt='Picture Loading.....' width='200' height='170' id='profile-image'/>
+        <img src={this.state.image} alt='Picture Loading.....' width='25%' height='25%' id='profile-image'/>
          <br/>
         <span style={{color:'blue'}}><b>{this.state.objectiveHeading}</b></span>
         <p>{this.state.objective}</p>
@@ -168,6 +186,21 @@ setTimeout(() => {
       <table><tbody>{this.state.organizationArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.organization}</td><td>{item.designation}</td><td>{item.period}</td>  <td><ul>{item.jobDescription.sort((a, b) => (a.order > b.order) ? 1 : -1).map((j,indx)=>{return <li key={indx}>{j.order}-{j.jd}</li>})}</ul></td> </tr>})}</tbody></table>
       {/* <table><tbody>{this.state.organizationArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.organization}</td><td>{item.designation}</td><td>{item.period}</td> </tr>})}</tbody></table> */}
      
+
+        <br/>
+      <span style={{color:'blue'}}><b>{this.state.computerSkills}</b></span><br/>
+       <ul> {this.state.computerSkillsArray.map((item,ind)=>{return <li key={ind}>{item.order}-{item.skills}</li>})}</ul>
+
+
+
+<br/>
+        <span style={{color:'blue'}}><b>Reference</b></span>
+        <p>{this.state.reference}</p>
+
+
+
+
+
         </div>
 
 

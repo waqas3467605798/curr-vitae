@@ -11,7 +11,8 @@ class Login extends Component{
     constructor(){
         super();
         this.state ={
-                user:null
+                user:null,
+                
         }
 
     }
@@ -63,7 +64,9 @@ class LoginForm extends Component{
         super();
         this.state ={
                 forgetStatus:false,
-                forgetEmial:''
+                forgetEmial:'',
+                wait:''
+                
         }
 
     }
@@ -90,6 +93,15 @@ class LoginForm extends Component{
          console.log('error')
      } )
  
+
+
+
+
+this.setState({wait:'Please Wait'})
+
+
+
+
     } 
  
  
@@ -153,6 +165,10 @@ class LoginForm extends Component{
                <button className="waves-effect btn-large" onClick={this.signin}>Login</button>
 
                 <a href='#' onClick={this.showForgetField}>Forget Password ?</a>
+
+
+                <p>{this.state.wait}</p>
+
 <br/><br/><br/>
 
                 

@@ -27,6 +27,9 @@ import firebase from './Fire'
         organizationArray:[],
         jd:'',
         jdOrder:'',
+        computerSkills:'',
+        computerOrder:'',
+        reference:'',
         pageRefresh:0
       }
 
@@ -200,6 +203,39 @@ this.setState({jd:'', jdOrder:''})
 }
 
 
+
+saveComputerSkills = ()=>{
+
+  var object = {}
+// object.[this.state.personalInfoHead] = this.state.personalInfoAns;
+object.skills = this.state.computerSkills;
+
+object.order = this.state.computerOrder;
+
+var key = firebase.database().ref('computerSkills').push().key
+object.key = key;
+      
+firebase.database().ref('computerSkills').child(key).set(object)
+
+
+alert('Information saved successfully')
+  this.setState({computerSkills:'', computerOrder:''})
+
+
+
+}
+
+
+
+saveReference =()=>{
+firebase.database().ref('reference').set({ref: this.state.reference})
+  alert('Reference saved successfully')
+  this.setState({reference:''})
+}
+
+
+
+
     Logout= ()=>{
         firebase.auth().signOut();
     }
@@ -265,6 +301,22 @@ this.setState({jd:'', jdOrder:''})
           {/* <p>{this.state.organizationArray.map(  (it,ind)=>{return <p>{it.organization}</p>}  )}</p> */}
           
           
+
+          <br/><br/><br/>
+          <span style={{color:'blue'}}><b>Computer/IT Skills</b></span>
+          <input type='text' name='computerSkills' value={this.state.computerSkills} onChange={this.changeHandler} placeholder='Computer Skills'/>
+          <input type='Number' name='computerOrder' value={this.state.computerOrder} onChange={this.changeHandler} placeholder='Order'/>
+          <button onClick={this.saveComputerSkills}> Save </button>
+
+
+<br/><br/><br/>
+          <span style={{color:'blue'}}><b>Reference</b></span>
+          <input type='text' name='reference' value={this.state.reference} onChange={this.changeHandler} placeholder='Reference'/>
+          <button onClick={this.saveReference}> Save </button>
+
+
+
+
           </div>
          
 
