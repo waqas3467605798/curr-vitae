@@ -140,16 +140,77 @@ setTimeout(() => {
 } )
 
 
-
-
-
-
-
-
-
-
-
   }
+
+
+
+
+
+  deletePersonalInfo =(i)=>{
+    var delKey = prompt("write 'Y' and Press OK")
+  
+    if(delKey === 'Y'){
+    var reqObj = this.state.personalInfoArray[i]
+    var objKey = reqObj.key
+    
+  
+  
+
+    //for delete in firebase
+    firebase.database().ref('personalInfo').child(objKey).remove()
+    //code ended
+  
+  
+    //for delete updation in state
+    this.state.personalInfoArray.splice(i,1) //for test delete
+    //Code ended
+  
+  
+    // this.setState({ledgerDeleteUpdate:true, sum:[], deleteRefresh:true})
+      alert('Deleted successfully')
+    }else{this.setState({cancelDelete:true})
+        alert('You have entered Wrong key') 
+      }
+  }
+
+
+
+
+
+
+editPersonalInfo=(i)=>{
+var reqObj = this.state.personalInfoArray[i]
+var key = reqObj.key
+
+var editHead = prompt('Please edit Head Name',reqObj.head)
+if(editHead === null){
+  editHead = reqObj.head
+}
+
+
+
+var editAns = prompt('Please edit Answer',reqObj.ans)
+if(editAns === null){
+  editAns = reqObj.ans
+}
+
+
+
+
+
+reqObj.head = editHead.replace(/  +/g, ' ').trim();
+reqObj.ans = editAns.replace(/  +/g, ' ').trim()
+
+
+
+firebase.database().ref('personalInfo').child(key).set(reqObj)
+
+
+this.state.personalInfoArray.splice(i,1,reqObj)
+
+
+
+}
 
 
 
@@ -172,7 +233,7 @@ setTimeout(() => {
 
 
         <span style={{color:'blue'}}><b>{this.state.personalInfoHeading}</b></span>
-        <table><tbody>{this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.head}</td><td>{item.ans}</td></tr>})}</tbody></table>
+        <table><tbody>{this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.head}</td><td>{item.ans}</td><td><a href='#' style={{fontSize:'16px', color:'red'}} className="material-icons" onClick={()=>this.deletePersonalInfo(ind)}>delete</a><a href='#' style={{fontSize:'16px', color:'green'}} className="small material-icons" onClick={()=> this.editPersonalInfo(ind)}>edit</a></td></tr>})}</tbody></table>
 
 
 
