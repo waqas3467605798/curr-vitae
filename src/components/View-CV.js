@@ -168,7 +168,7 @@ setTimeout(() => {
   
     // this.setState({ledgerDeleteUpdate:true, sum:[], deleteRefresh:true})
       alert('Deleted successfully')
-    }else{this.setState({cancelDelete:true})
+    }else{
         alert('You have entered Wrong key') 
       }
   }
@@ -181,6 +181,14 @@ setTimeout(() => {
 editPersonalInfo=(i)=>{
 var reqObj = this.state.personalInfoArray[i]
 var key = reqObj.key
+
+
+var editOrder = prompt('Please edit Order',reqObj.order)
+if(editOrder === null){
+  editOrder = reqObj.order
+}
+
+
 
 var editHead = prompt('Please edit Head Name',reqObj.head)
 if(editHead === null){
@@ -198,8 +206,11 @@ if(editAns === null){
 
 
 
+
+
 reqObj.head = editHead.replace(/  +/g, ' ').trim();
 reqObj.ans = editAns.replace(/  +/g, ' ').trim()
+reqObj.order = editOrder.replace(/  +/g, ' ').trim()
 
 
 
@@ -214,6 +225,93 @@ this.state.personalInfoArray.splice(i,1,reqObj)
 
 
 
+
+deleteEducationInfo = (i)=>{
+  var delKey = prompt("write 'Y' and Press OK")
+  
+  if(delKey === 'Y'){
+  var reqObj = this.state.educationInfoArray[i]
+  var objKey = reqObj.key
+  
+
+
+
+  //for delete in firebase
+  firebase.database().ref('educationInfo').child(objKey).remove()
+  //code ended
+
+
+  //for delete updation in state
+  this.state.educationInfoArray.splice(i,1) //for test delete
+  //Code ended
+
+
+  // this.setState({ledgerDeleteUpdate:true, sum:[], deleteRefresh:true})
+    alert('Deleted successfully')
+  }else{
+      alert('You have entered Wrong key') 
+    }
+}
+
+
+
+
+editEducationInfo = (i)=>{
+  var reqObj = this.state.educationInfoArray[i]
+  var key = reqObj.key
+  
+  
+  var editOrder = prompt('Please edit Order',reqObj.order)
+  if(editOrder === null){
+    editOrder = reqObj.order
+  }
+  
+  
+  
+  var editDegree = prompt('Please edit Head Name',reqObj.degree)
+  if(editDegree === null){
+    editDegree = reqObj.degree
+  }
+  
+  
+  
+  var editUniversity = prompt('Please edit Answer',reqObj.university)
+  if(editUniversity === null){
+    editUniversity = reqObj.university
+  }
+  
+  
+  
+  
+var editGrade = prompt('Please edit Answer',reqObj.grade)
+  if(editGrade === null){
+    editGrade = reqObj.grade
+  }
+
+
+
+var editImageLink = prompt('Please edit Answer',reqObj.degreeImageLink)
+  if(editImageLink === null){
+    editImageLink = reqObj.degreeImageLink
+  }
+
+
+  
+  
+  
+  reqObj.order = editOrder.replace(/  +/g, ' ').trim();
+  reqObj.degree = editDegree.replace(/  +/g, ' ').trim();
+  reqObj.university = editUniversity.replace(/  +/g, ' ').trim()
+  reqObj.grade = editGrade.replace(/  +/g, ' ').trim()
+  reqObj.degreeImageLink = editImageLink.replace(/  +/g, ' ').trim()
+  
+  
+  
+  firebase.database().ref('educationInfo').child(key).set(reqObj)
+  
+  
+  this.state.educationInfoArray.splice(i,1,reqObj)
+}
   
 
 
@@ -238,7 +336,7 @@ this.state.personalInfoArray.splice(i,1,reqObj)
 
 
       <span style={{color:'blue'}}><b>{this.state.educationInfoHeading}</b></span><br/>
-      <table><tbody>{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.degree}</td><td>{item.university}</td><td>{item.grade}</td><td> <a href={item.degreeImageLink} target='_blank'> View Degree </a> </td></tr>})}</tbody></table>
+      <table><tbody>{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.degree}</td><td>{item.university}</td><td>{item.grade}</td><td> <a href={item.degreeImageLink} target='_blank'> View Degree </a> </td><td><a href='#' style={{fontSize:'16px', color:'red'}} className="material-icons" onClick={()=>this.deleteEducationInfo(ind)}>delete</a><a href='#' style={{fontSize:'16px', color:'green'}} className="small material-icons" onClick={()=> this.editEducationInfo(ind)}>edit</a></td></tr>})}</tbody></table>
 
 
 
