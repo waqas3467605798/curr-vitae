@@ -177,7 +177,7 @@ saveOrganization = ()=>{
 
 
 alert('Information saved successfully')
-    this.setState({organization:'', designation:'', organizationOrder:''})
+    this.setState({organization:'', designation:'', organizationOrder:'', period:''})
 
 }
 

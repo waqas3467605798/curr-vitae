@@ -316,6 +316,243 @@ var editImageLink = prompt('Please edit Answer',reqObj.degreeImageLink)
 
 
 
+deleteOrg = (i)=>{
+  var delKey = prompt("write 'Y' and Press OK")
+  
+  if(delKey === 'Y'){
+  var reqObj = this.state.organizationArray[i]
+  var objKey = reqObj.key
+  
+
+
+
+  //for delete in firebase
+  firebase.database().ref('organization').child(objKey).remove()
+  //code ended
+
+
+  //for delete updation in state
+  this.state.organizationArray.splice(i,1) //for test delete
+  //Code ended
+
+
+  // this.setState({ledgerDeleteUpdate:true, sum:[], deleteRefresh:true})
+    alert('Deleted successfully')
+  }else{
+      alert('You have entered Wrong key') 
+    }
+}
+
+
+
+
+
+
+editOrg = (i)=>{
+  var reqObj = this.state.organizationArray[i]
+  var key = reqObj.key
+  
+  
+  var editOrder = prompt('Please edit Order',reqObj.order)
+  if(editOrder === null){
+    editOrder = reqObj.order
+  }
+  
+  
+
+  var editOrganization = prompt('Please edit Answer',reqObj.organization)
+  if(editOrganization === null){
+    editOrganization = reqObj.organization
+  }
+
+
+
+  
+  var editDesignation = prompt('Please edit Head Name',reqObj.designation)
+  if(editDesignation === null){
+    editDesignation = reqObj.designation
+  }
+  
+  
+
+  
+  
+var editPeriod = prompt('Please edit Answer',reqObj.period)
+  if(editPeriod === null){
+    editPeriod = reqObj.period
+  }
+
+
+
+
+  reqObj.order = editOrder.replace(/  +/g, ' ').trim();
+  reqObj.designation = editDesignation.replace(/  +/g, ' ').trim();
+  reqObj.organization = editOrganization.replace(/  +/g, ' ').trim()
+  reqObj.period = editPeriod.replace(/  +/g, ' ').trim()
+  
+  
+  
+  
+  firebase.database().ref('organization').child(key).set(reqObj)
+  
+  
+  this.state.organizationArray.splice(i,1,reqObj)
+}
+
+
+
+
+
+
+deleteExperience = (objIndx,jdIndx)=>{
+  var delKey = prompt("write 'Y' and Press OK")
+  
+  if(delKey === 'Y'){
+  var reqObj = this.state.organizationArray[objIndx]
+  reqObj.jobDescription.splice(jdIndx,1)
+  // var objKey = reqObj.key
+  
+
+
+
+  //for delete in firebase
+  firebase.database().ref('organization').child(reqObj.key).set(reqObj)
+  //code ended
+
+
+  //for delete updation in state
+  // this.state.organizationArray[objIndx].jobDescription.splice(jdIndx,1) //for test delete
+  //Code ended
+
+
+  // this.setState({ledgerDeleteUpdate:true, sum:[], deleteRefresh:true})
+    alert('Deleted successfully')
+  }else{
+      alert('You have entered Wrong key') 
+    }
+}
+
+
+
+
+
+
+editExperience = (objIndx,jdIndx)=>{
+  var reqObj = this.state.organizationArray[objIndx]
+  var key = reqObj.key
+  
+  
+  var editOrder = prompt('Please edit Order',reqObj.jobDescription[jdIndx].order)
+  if(editOrder === null){
+    editOrder = reqObj.order
+  }
+  
+  
+
+  var editJd = prompt('Please edit Answer',reqObj.jobDescription[jdIndx].jd)
+  if(editJd === null){
+    editJd = reqObj.jd
+  }
+
+
+
+
+
+  reqObj.jobDescription[jdIndx].order = editOrder.replace(/  +/g, ' ').trim();
+  reqObj.jobDescription[jdIndx].jd = editJd.replace(/  +/g, ' ').trim();
+  
+  
+  
+  
+  
+  firebase.database().ref('organization').child(key).set(reqObj)
+  
+  
+  // this.state.organizationArray[objIndx].jobDescription.splice(jdIndx,1,reqObj)
+  this.state.organizationArray.splice(objIndx,1,reqObj)
+}
+
+
+
+
+deleteItSkills = (i)=>{
+  var delKey = prompt("write 'Y' and Press OK")
+  
+  if(delKey === 'Y'){
+  var reqObj = this.state.computerSkillsArray[i]
+  var objKey = reqObj.key
+  
+
+
+
+  //for delete in firebase
+  firebase.database().ref('computerSkills').child(objKey).remove()
+  //code ended
+
+
+  //for delete updation in state
+  this.state.computerSkillsArray.splice(i,1) //for test delete
+  //Code ended
+
+
+  // this.setState({ledgerDeleteUpdate:true, sum:[], deleteRefresh:true})
+    alert('Deleted successfully')
+  }else{
+      alert('You have entered Wrong key') 
+    }
+}
+
+
+
+
+
+
+
+editItSkills = (i)=>{
+  var reqObj = this.state.computerSkillsArray[i]
+  var key = reqObj.key
+  
+  
+  var editOrder = prompt('Please edit Order',reqObj.order)
+  if(editOrder === null){
+    editOrder = reqObj.order
+  }
+  
+  
+  
+  var editSkills = prompt('Please edit Head Name',reqObj.skills)
+  if(editSkills === null){
+    editSkills = reqObj.skills
+  }
+  
+  
+  
+  
+
+  
+  reqObj.order = editOrder.replace(/  +/g, ' ').trim();
+  reqObj.skills = editSkills.replace(/  +/g, ' ').trim();
+  
+  
+  
+  firebase.database().ref('computerSkills').child(key).set(reqObj)
+  
+  
+  this.state.computerSkillsArray.splice(i,1,reqObj)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
     render(){
       return(
         <div>
@@ -342,13 +579,13 @@ var editImageLink = prompt('Please edit Answer',reqObj.degreeImageLink)
 
 
       <span style={{color:'blue'}}><b>{this.state.experience}</b></span><br/>
-      <table><tbody>{this.state.organizationArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.organization}</td><td>{item.designation}</td><td>{item.period}</td>  <td><ul>{item.jobDescription.sort((a, b) => (a.order > b.order) ? 1 : -1).map((j,indx)=>{return <li key={indx}>{j.order}-{j.jd}</li>})}</ul></td> </tr>})}</tbody></table>
+      <table><tbody>{this.state.organizationArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.organization}</td><td>{item.designation}</td><td>{item.period}</td><td><a href='#' style={{fontSize:'16px', color:'red'}} className="material-icons" onClick={()=>this.deleteOrg(ind)}>delete</a><a href='#' style={{fontSize:'16px', color:'green'}} className="small material-icons" onClick={()=> this.editOrg(ind)}>edit</a></td>  <td><ul>{item.jobDescription.sort((a, b) => (a.order > b.order) ? 1 : -1).map((j,indx)=>{return <li key={indx}>{j.order}-{j.jd}-<a href='#' style={{fontSize:'16px', color:'red'}} className="material-icons" onClick={()=>this.deleteExperience(ind,indx)}>delete</a><a href='#' style={{fontSize:'16px', color:'green'}} className="small material-icons" onClick={()=> this.editExperience(ind,indx)}>edit</a></li>})}</ul></td> </tr>})}</tbody></table>
       {/* <table><tbody>{this.state.organizationArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td>{item.order}</td><td>{item.organization}</td><td>{item.designation}</td><td>{item.period}</td> </tr>})}</tbody></table> */}
      
 
         <br/>
       <span style={{color:'blue'}}><b>{this.state.computerSkills}</b></span><br/>
-       <ul> {this.state.computerSkillsArray.map((item,ind)=>{return <li key={ind}>{item.order}-{item.skills}</li>})}</ul>
+       <ul> {this.state.computerSkillsArray.map((item,ind)=>{return <li key={ind}>{item.order}-{item.skills}- <a href='#' style={{fontSize:'16px', color:'red'}} className="material-icons" onClick={()=>this.deleteItSkills(ind)}>delete</a><a href='#' style={{fontSize:'16px', color:'green'}} className="small material-icons" onClick={()=> this.editItSkills(ind)}>edit</a></li>})}</ul>
 
 
 
