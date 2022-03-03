@@ -1,13 +1,49 @@
-import react, {Component} from 'react'
+import react, {Component , useRef} from 'react'
 import '../App.css';
 // import {Link, Route,BrowserRouter} from 'react-router-dom'
 import firebase from './Fire'
 import App from '../App'
+import {useReactToPrint} from 'react-to-print'
+
+
+
+
+
+class PublicView extends Component{
+    constructor(){
+        super();
+        this.state ={
+                
+                
+        }
+
+    }
+
+
+    // componentDidMount(){
+        
+        
+    //     }
+        
+        
+
+    render(){
+        return(
+        <div>
+
+            <h5>This is only for view</h5>
+
+        </div>
+        )
+    }
+}
+
+
 
 
 
 //This Component is made to show the all App you made
-class Login extends Component{
+class LoginCompo extends Component{
     constructor(){
         super();
         this.state ={
@@ -40,6 +76,8 @@ class Login extends Component{
         return(
         <div>
 
+            
+
 {this.state.user ? (<App/>) : <LoginForm/>}
 
         </div>
@@ -47,7 +85,7 @@ class Login extends Component{
     }
 }
 
-export default Login;
+// export default Login;
 
 
 
@@ -198,3 +236,35 @@ Contact: 0346-7605798 Email: waqas_mba86@yahoo.com
      }
  }
 
+
+
+
+
+
+
+
+
+
+ const Login = ()=>{
+
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+      content: ()=>componentRef.current,
+    })
+    
+      return(
+        <div>
+        <PublicView ref={componentRef}/>
+        <div><a href='#' onClick={handlePrint}>Print Report</a></div>
+        <br/><br/><br/><br/>
+        <LoginCompo />
+    
+    
+        
+        </div>
+      )
+    }
+    
+    
+    
+    export default Login;
