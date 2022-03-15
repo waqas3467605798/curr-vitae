@@ -30,9 +30,7 @@ class MyDocs extends Component{
     }
   }
 
-  // async
-  // componentDidMount
-  // componentWillMount
+  
   async componentDidMount(){
     // var userId = firebase.auth().currentUser.uid;
     // var userEmail = firebase.auth().currentUser.email
@@ -561,7 +559,7 @@ editItSkills = (i)=>{
          
          <p> <span>State has been refreshed for </span> <b>{this.state.pageRefresh}</b> <span> times</span></p>
         
-        <img src={this.state.image} alt='Picture Loading.....' width='25%' height='25%' id='profile-image'/>
+        <img src={this.state.image} alt='Picture Loading.....' width='27%' height='27%' className='profile-image'/>
          <br/>
         <span style={{color:'blue'}}><b>{this.state.objectiveHeading}</b></span>
         <p>{this.state.objective}</p>

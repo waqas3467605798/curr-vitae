@@ -107,6 +107,6 @@ tr:hover{
     color:grey
 }
 
-#profile-image{
+.profile-image{
     border-radius: 100%;
 }

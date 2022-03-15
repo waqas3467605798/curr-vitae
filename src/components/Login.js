@@ -13,25 +13,179 @@ class PublicView extends Component{
     constructor(){
         super();
         this.state ={
-                
+            userEmail:null,
+            image:'',
+            objective:'',
+            reference:'',
+            personalInfoArray:[],
+            educationInfoArray:[],
+            organizationArray:[],
+            computerSkillsArray:[],
+            // pageLoading:false,
+            objectiveHeading:'Loading....',
+            personalInfoHeading:'Loading....',
+            educationInfoHeading:'Loading....',
+            experience:'Loading....',
+            computerSkills:'Loading....',
+            pageRefresh:0
                 
         }
 
     }
 
 
-    // componentDidMount(){
-        
-        
-    //     }
+    
+    async componentDidMount(){
+        // var userId = firebase.auth().currentUser.uid;
+        // var userEmail = firebase.auth().currentUser.email
+        // this.setState({user:userId,userEmail:userEmail})
+    var dataPromise = new Promise( (res,rej)=>{
+    
+    
+    firebase.database().ref('myImage').on('child_added' , (data)=> { 
+      this.setState({image:data.val()})
+        //  this.state.image.push(data.val())
+        }  )
+    
+    
+    
+    firebase.database().ref('objective').on('child_added' , (data)=> { 
+      this.setState({objective:data.val()})
+        //  this.state.image.push(data.val())
+        }  )
+    
+    
+    
+    firebase.database().ref('reference').on('child_added' , (data)=> { 
+      this.setState({reference:data.val()})
+        //  this.state.image.push(data.val())
+        }  )
+    
+    
+    
+    var dataObject = {
+      personalInfo:[],
+      educationInfo:[],
+      organization:[],
+      computerSkill:[]
+    
+    }
+    
+    
+    firebase.database().ref('personalInfo').on('child_added' , (data)=> { 
+        //  this.state.personalInfoArray.push(data.val())
+         dataObject.personalInfo.push(data.val())
+        }  )
+    
+    
+    
+    
+    
+    firebase.database().ref('educationInfo').on('child_added' , (data)=> { 
+        //  this.state.educationInfoArray.push(data.val())
+         dataObject.educationInfo.push(data.val())
+        }  )
+    
+    
+    
+        firebase.database().ref('organization').on('child_added' , (data)=> { 
+          //  this.state.educationInfoArray.push(data.val())
+           dataObject.organization.push(data.val())
+          }  )
+    
+    
+    
+          firebase.database().ref('computerSkills').on('child_added' , (data)=> { 
+            //  this.state.educationInfoArray.push(data.val())
+             dataObject.computerSkill.push(data.val())
+            }  )
+    
+    
+    
+    res(dataObject)
+    
+    
+    
+    
+    } )
+    
+    
+    
+    dataPromise.then( (dataObj)=>{
+    this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo, organizationArray:dataObj.organization , computerSkillsArray:dataObj.computerSkill,  objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information', experience:'Experience Record', computerSkills:'Computer/IT Skills'})
+    
+    
+    
+    
+    // below code is only for change in state for 20 seconds.
+    setTimeout(() => {
+      
+    
+      const inteId = setInterval(()=>{
+        this.setState({pageRefresh: this.state.pageRefresh+1})
+      },2000)
+      
+      
+      setTimeout(() => {
+        clearInterval(inteId);
+      }, 20000);
+    
+    
+    
+    }, 1000);
+    
+    
+    
+    
+    
+    
+    } )
+    
+    
+      }
+
+
+
+
+
+
+
+
+
+
+
+
         
         
 
     render(){
         return(
-        <div>
+        <div className='container'>
+            <br/><br/>
+            <h4 style={{textAlign:'center', margin:'0px'}}>PERSONAL PROFILE</h4>
+            <p style={{textAlign:'center',margin:'0px'}}>https://profile-my.web.app</p>
+            <hr/>
+            <br/>
+{/* image div */}
+<div className='row'>
+    {/* first Column */}
+    <div className='col s6'>
+<img src={this.state.image} alt='Picture Loading...' width='60%' height='27%' className='profile-image'/> <br/>
 
-            <h5>This is only for view</h5>
+   </div>
+
+    {/* second column */}
+   <div className='col s6'>
+       
+         <span style={{fontSize:'200%'}}><b>Waqas Saleem</b></span><br/><hr/>
+       <span style={{fontSize:'150%'}}>Contact: 0346-7605798</span><br/><hr/>
+       <span style={{fontSize:'100%'}}>waqas.mba86@gmail.com</span><br/><hr/>
+       <span style={{fontSize:'100%'}}>ST-7, P-4671/6, Mansoorabad, 66-Foota bazar, Faisalabad.</span><br/><hr/>
+       <span style={{fontSize:'100%'}}><b>web: </b> https://profile-my.web.app</span><hr/>
+   </div>
+</div>
+
+
 
         </div>
         )
