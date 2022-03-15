@@ -117,18 +117,18 @@ class PublicView extends Component{
     
     
     
-    // below code is only for change in state for 20 seconds.
+    // below code is only for change in state for 35 seconds.
     setTimeout(() => {
       
     
       const inteId = setInterval(()=>{
         this.setState({pageRefresh: this.state.pageRefresh+1})
-      },2000)
+      },1000)
       
       
       setTimeout(() => {
         clearInterval(inteId);
-      }, 20000);
+      }, 35000);
     
     
     
@@ -161,29 +161,63 @@ class PublicView extends Component{
     render(){
         return(
         <div className='container'>
+            
             <br/><br/>
-            <h4 style={{textAlign:'center', margin:'0px'}}>PERSONAL PROFILE</h4>
+            <div style={{backgroundColor:'lightgray'}}>
+            <h5 style={{textAlign:'center', margin:'0px'}}><b>PERSONAL PROFILE</b></h5>
             <p style={{textAlign:'center',margin:'0px'}}>https://profile-my.web.app</p>
-            <hr/>
+            </div>
             <br/>
+
+
+
+
+
+
 {/* image div */}
 <div className='row'>
     {/* first Column */}
-    <div className='col s6'>
-<img src={this.state.image} alt='Picture Loading...' width='60%' height='27%' className='profile-image'/> <br/>
+    <div className='col s4'>
+<img src={this.state.image} alt='Picture Loading...' width='90%' height='27%' className='profile-image'/> <br/>
 
    </div>
 
     {/* second column */}
-   <div className='col s6'>
+   <div className='col s8'>
        
-         <span style={{fontSize:'200%'}}><b>Waqas Saleem</b></span><br/><hr/>
+       <span style={{fontSize:'200%'}}><b>Waqas Saleem</b></span><br/><hr/>
        <span style={{fontSize:'150%'}}>Contact: 0346-7605798</span><br/><hr/>
        <span style={{fontSize:'100%'}}>waqas.mba86@gmail.com</span><br/><hr/>
        <span style={{fontSize:'100%'}}>ST-7, P-4671/6, Mansoorabad, 66-Foota bazar, Faisalabad.</span><br/><hr/>
        <span style={{fontSize:'100%'}}><b>web: </b> https://profile-my.web.app</span><hr/>
    </div>
 </div>
+
+
+
+
+
+
+
+
+<hr/>
+{/* Objective Div */}
+<span style={{fontSize:'20px', color:'blue'}}><b>Objective</b></span>
+<p>{this.state.objective}</p>
+
+
+
+
+
+
+
+
+<hr/>
+<br/>
+<span style={{fontSize:'20px', color:'blue'}}><b>Education</b></span>
+
+
+
 
 
 
