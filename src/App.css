@@ -110,3 +110,10 @@ tr:hover{
 .profile-image{
     border-radius: 100%;
 }
+
+
+
+#printButton{
+    cursor: pointer;
+
+}

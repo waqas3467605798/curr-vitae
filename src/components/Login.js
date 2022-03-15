@@ -164,7 +164,7 @@ class PublicView extends Component{
             
             <br/><br/>
             <div style={{backgroundColor:'lightgray'}}>
-            <h5 style={{textAlign:'center', margin:'0px'}}><b>PERSONAL PROFILE</b></h5>
+            <h5 style={{textAlign:'center', margin:'0px',padding:'7px'}}><b>PERSONAL PROFILE</b></h5>
             <p style={{textAlign:'center',margin:'0px'}}>https://profile-my.web.app</p>
             </div>
             <br/>
@@ -177,13 +177,13 @@ class PublicView extends Component{
 {/* image div */}
 <div className='row'>
     {/* first Column */}
-    <div className='col s4'>
+    <div className='col s5 m4 l3'>
 <img src={this.state.image} alt='Picture Loading...' width='90%' height='27%' className='profile-image'/> <br/>
 
    </div>
 
     {/* second column */}
-   <div className='col s8'>
+   <div className='col s7 m8 9'>
        
        <span style={{fontSize:'200%'}}><b>Waqas Saleem</b></span><br/><hr/>
        <span style={{fontSize:'150%'}}>Contact: 0346-7605798</span><br/><hr/>
@@ -200,10 +200,41 @@ class PublicView extends Component{
 
 
 
+
 <hr/>
 {/* Objective Div */}
-<span style={{fontSize:'20px', color:'blue'}}><b>Objective</b></span>
+<span style={{fontSize:'25px', color:'blue'}}><b>Objective</b></span>
 <p>{this.state.objective}</p>
+
+
+
+
+
+
+
+
+
+{/* Education Div */}
+<hr/>
+<br/>
+<span style={{fontSize:'25px', color:'blue'}}><b>Education</b></span>
+
+{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+    
+return <div key={ind} style={{width:'75%', margin:'auto'}}>
+<b>{item.degree}</b><br/>
+<span>{item.university}</span><br/>
+<span>Passing Year: {item.passingYear}</span><br/>
+<span>Grade/Percentage: {item.grade}</span><br/>
+<i style={{textDecoration:'underline', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'>View Degree/Certificate ? - Click Here</a></i><br/><br/>
+</div>
+
+
+
+})}
+
+
+
 
 
 
@@ -214,7 +245,36 @@ class PublicView extends Component{
 
 <hr/>
 <br/>
-<span style={{fontSize:'20px', color:'blue'}}><b>Education</b></span>
+{/* Div of Professional Experience */}
+<span style={{fontSize:'23px', color:'blue'}}><b>Professional Experience</b></span>
+
+{this.state.organizationArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+
+
+return <div key={ind}>
+    <div className="col s12 m6">
+      <div className="card blue-grey lighten-5">
+        <div className="card-content black-text">
+          <span className="card-title"><b>{item.designation}</b></span>
+          <span><b>{item.organization}</b></span><br/>
+          <span><b>{item.period}</b></span><br/><br/>
+          <span style={{textDecoration:'underline'}}><b>Job Description</b></span><br/>
+          <ol>
+              {item.jobDescription.map((it,i)=>{
+                  return <li className={it.jd==='Job Description'?'display':''} key={i}>{it.jd}</li>
+              })}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+})}
+
 
 
 
@@ -291,7 +351,8 @@ class LoginForm extends Component{
         this.state ={
                 forgetStatus:false,
                 forgetEmial:'',
-                wait:''
+                wait:'',
+                showForm:false
                 
         }
 
@@ -371,8 +432,9 @@ this.setState({wait:'Please Wait'})
       {/* <span style={{fontSize:'12px'}}>{navigator.onLine===true ? <span style={{color:'green'}}>You are online</span> : <span style={{color:'red'}}>You are OffLine</span>}</span> */}
 <br/><br/>
 
-<h2 className='headings' style={{textAlign:'center',fontSize:'30px'}}>Login Here</h2>
-
+<button style={{cursor:'pointer'}} onClick={()=>{this.setState({showForm:true})}}>Manage-CV</button>
+<br/><br/><br/>
+<div className={this.state.showForm===true?'':'display'}>
              <div className="row container">
              <div className="col s12">
               
@@ -418,7 +480,7 @@ Easy Accounts Management System<br/>
 Contact: 0346-7605798 Email: waqas_mba86@yahoo.com
 </div> */}
 
-
+</div>
              </div>
          )
      }
@@ -443,7 +505,8 @@ Contact: 0346-7605798 Email: waqas_mba86@yahoo.com
       return(
         <div>
         <PublicView ref={componentRef}/>
-        <div><a href='#' onClick={handlePrint}>Print Report</a></div>
+        <br/><br/><br/>
+        <div className='container'><a id='printButton' onClick={handlePrint}>PDF or Print CV</a></div>
         <br/><br/><br/><br/>
         <LoginCompo />
     
