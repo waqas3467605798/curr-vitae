@@ -164,7 +164,7 @@ class PublicView extends Component{
             
             <br/><br/>
             <div style={{backgroundColor:'lightgray'}}>
-            <h5 style={{textAlign:'center', margin:'0px',padding:'7px'}}><b>PERSONAL PROFILE</b></h5>
+            <h5 style={{textAlign:'center', margin:'0px',padding:'7px'}}>PERSONAL PROFILE</h5>
             <p style={{textAlign:'center',margin:'0px'}}>https://profile-my.web.app</p>
             </div>
             <br/>
@@ -185,8 +185,8 @@ class PublicView extends Component{
     {/* second column */}
    <div className='col s7 m8 9'>
        
-       <span style={{fontSize:'200%'}}><b>Waqas Saleem</b></span><br/><hr/>
-       <span style={{fontSize:'150%'}}>Contact: 0346-7605798</span><br/><hr/>
+       <span style={{fontSize:'170%'}}><b>Waqas Saleem</b></span><br/><hr/>
+       <span style={{fontSize:'110%'}}>Contact: 0346-7605798</span><br/><hr/>
        <span style={{fontSize:'100%'}}>waqas.mba86@gmail.com</span><br/><hr/>
        <span style={{fontSize:'100%'}}>ST-7, P-4671/6, Mansoorabad, 66-Foota bazar, Faisalabad.</span><br/><hr/>
        <span style={{fontSize:'100%'}}><b>web: </b> https://profile-my.web.app</span><hr/>
@@ -218,23 +218,40 @@ class PublicView extends Component{
 <hr/>
 <br/>
 <span style={{fontSize:'25px', color:'blue'}}><b>Education</b></span>
-
+<div className='row'>
+{/* first column of educationInfo */}
+<div className='col s12 m6'>
 {this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-    
-return <div key={ind} style={{width:'75%', margin:'auto'}}>
-<b>{item.degree}</b><br/>
+return <div className={item.order==='3' || item.order==='4'?'display':''} key={ind} style={{width:'100%', margin:'auto'}}>
+<b>{ind+1}) {item.degree}</b><br/>
 <span>{item.university}</span><br/>
 <span>Passing Year: {item.passingYear}</span><br/>
 <span>Grade/Percentage: {item.grade}</span><br/>
 <i style={{textDecoration:'underline', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'>View Degree/Certificate ? - Click Here</a></i><br/><br/>
 </div>
 
+})}
+</div>
 
+
+{/* second column of educationInfo */}
+<div className='col s12 m6'>
+{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+return <div className={item.order==='1' || item.order==='2'?'display':''} key={ind} style={{width:'95%', margin:'auto'}}>
+<b>{ind+1}) {item.degree}</b><br/>
+<span>{item.university}</span><br/>
+<span>Passing Year: {item.passingYear}</span><br/>
+<span>Grade/Percentage: {item.grade}</span><br/>
+<i style={{textDecoration:'underline', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'>View Degree/Certificate ? - Click Here</a></i><br/><br/>
+</div>
 
 })}
 
+</div>
 
 
+
+</div>
 
 
 
@@ -278,6 +295,69 @@ return <div key={ind}>
 
 
 
+
+
+
+
+
+
+
+
+
+<br/>
+{/* I.T Skills Div */}
+<span style={{fontSize:'23px', color:'blue'}}><b>Computer/I.T Skills</b></span>
+<ol>
+{this.state.computerSkillsArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+
+return <li key={ind}>
+        {item.skills}
+       </li>
+
+
+})}
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+<hr/>
+{/* Personal info Div */}
+<span style={{fontSize:'23px', color:'blue'}}><b>Personal Info:</b></span>
+<table style={{width:'80%', backgroundColor:'lightyellow',margin:'auto'}}><tbody>{this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td><b>{item.head}</b></td><td>{item.ans}</td></tr>})}</tbody></table>
+
+
+
+
+
+
+
+<hr/>
+{/* Reference Div */}
+<span style={{fontSize:'23px', color:'blue'}}><b>Reference:</b></span>
+<p>{this.state.reference}</p>
+
+
+
+
+
+
+<hr/>
+
+{/* Reference Div */}
+{/* <span style={{fontSize:'18px', color:'blue'}}><b>Documents Attached:</b></span><br/>
+<span>Following Documents can access/view by visiting  <i style={{fontSize:'11px'}}>https://profile-my.web.app</i> </span> */}
+
+
+<p style={{textAlign:'center'}}>***END***</p>
 
 
 
@@ -424,7 +504,7 @@ this.setState({wait:'Please Wait'})
 
      render(){
          return (
-             <div>
+             <div className='container'>
  
  {/* <div id='div1'> 
       My Documents
