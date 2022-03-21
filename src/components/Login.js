@@ -27,7 +27,10 @@ class PublicView extends Component{
             educationInfoHeading:'Loading....',
             experience:'Loading....',
             computerSkills:'Loading....',
-            pageRefresh:0
+            pageRefresh:0,
+            show_CV_with_pic:true,
+            show_CV_without_pic:false,
+            showStylishCV:false
                 
         }
 
@@ -146,10 +149,33 @@ class PublicView extends Component{
 
 
 
+      cvWithPic=()=>{
+        this.setState({show_CV_with_pic:true,show_CV_without_pic:false})
+
+        setTimeout(() => {
+      
+    
+          const inteId = setInterval(()=>{
+            this.setState({pageRefresh: this.state.pageRefresh+1})
+          },1000)
+          
+          
+          setTimeout(() => {
+            clearInterval(inteId);
+          }, 35000);
+        
+        
+        
+        }, 1000);
 
 
 
+      }
 
+
+      cvWithoutPic=()=>{
+        this.setState({show_CV_with_pic:false,show_CV_without_pic:true})
+      }
 
 
 
@@ -161,7 +187,9 @@ class PublicView extends Component{
     render(){
         return(
         <div className='container'>
-            
+        <div>
+
+
             <br/><br/>
             <div style={{backgroundColor:'lightgray'}}>
             <h5 style={{textAlign:'center', margin:'0px',padding:'7px'}}>PERSONAL PROFILE</h5>
@@ -174,23 +202,38 @@ class PublicView extends Component{
 
 
 
+
 {/* image div */}
 <div className='row'>
     {/* first Column */}
-    <div className='col s5 m4 l3'>
+    <div className={this.state.show_CV_with_pic===true?'col s5 m4 l3':'display'}>
 <img src={this.state.image} alt='Picture Loading...' width='90%' height='27%' className='profile-image'/> <br/>
 
    </div>
 
     {/* second column */}
-   <div className='col s7 m8 9'>
+   <div className={this.state.show_CV_with_pic===true?'col s7 m8 9':'display'}>
        
-       <span style={{fontSize:'170%'}}><b>Waqas Saleem</b></span><br/><hr/>
-       <span style={{fontSize:'110%'}}>Contact: 0346-7605798</span><br/><hr/>
-       <span style={{fontSize:'100%'}}>waqas.mba86@gmail.com</span><br/><hr/>
-       <span style={{fontSize:'100%'}}>ST-7, P-4671/6, Mansoorabad, 66-Foota bazar, Faisalabad.</span><br/><hr/>
-       <span style={{fontSize:'100%'}}><b>web: </b> https://profile-my.web.app</span><hr/>
+       <span style={{fontSize:'140%'}}><b>Waqas Saleem</b></span><br/><hr/>
+       <span style={{fontSize:'90%'}}>Contact: 0346-7605798</span><br/><hr/>
+       <span style={{fontSize:'90%'}}>waqas.mba86@gmail.com</span><br/><hr/>
+       <span style={{fontSize:'90%'}}>ST-7, P-4671/6, Mansoorabad, 66-Foota bazar, Faisalabad.</span><br/><hr/>
+       <span style={{fontSize:'90%'}}><b>web: </b> https://profile-my.web.app</span><hr/>
    </div>
+
+
+
+   <div className={this.state.show_CV_with_pic===false?'col s12':'display'}>
+       
+       <span style={{fontSize:'140%'}}><b>Waqas Saleem</b></span><br/>
+       <span style={{fontSize:'90%'}}>Contact: 0346-7605798</span><br/>
+       <span style={{fontSize:'90%'}}>waqas.mba86@gmail.com</span><br/>
+       <span style={{fontSize:'90%'}}>ST-7, P-4671/6, Mansoorabad, 66-Foota bazar, Faisalabad.</span><br/>
+       <span style={{fontSize:'90%'}}><b>web: </b> https://profile-my.web.app</span>
+   </div>
+
+
+
 </div>
 
 
@@ -220,7 +263,7 @@ class PublicView extends Component{
 <span style={{fontSize:'25px', color:'blue'}}><b>Education</b></span>
 <div className='row'>
 {/* first column of educationInfo */}
-<div className='col s12 m6'>
+<div className='col s6'>
 {this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
 return <div className={item.order==='3' || item.order==='4'?'display':''} key={ind} style={{width:'100%', margin:'auto'}}>
 <b>{ind+1}) {item.degree}</b><br/>
@@ -235,7 +278,7 @@ return <div className={item.order==='3' || item.order==='4'?'display':''} key={i
 
 
 {/* second column of educationInfo */}
-<div className='col s12 m6'>
+<div className='col s6'>
 {this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
 return <div className={item.order==='1' || item.order==='2'?'display':''} key={ind} style={{width:'95%', margin:'auto'}}>
 <b>{ind+1}) {item.degree}</b><br/>
@@ -355,9 +398,11 @@ return <li key={ind}>
 {/* Reference Div */}
 {/* <span style={{fontSize:'18px', color:'blue'}}><b>Documents Attached:</b></span><br/>
 <span>Following Documents can access/view by visiting  <i style={{fontSize:'11px'}}>https://profile-my.web.app</i> </span> */}
+</div>
 
 
-<p style={{textAlign:'center'}}>***END***</p>
+
+<p style={{textAlign:'center',letterSpacing:'15px'}}><abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.cvWithPic}>*</abbr><abbr title='CV Without Pic' style={{cursor:'pointer'}} onClick={this.cvWithoutPic}>*</abbr>  *  </p>
 
 
 
