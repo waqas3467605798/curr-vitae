@@ -28,9 +28,9 @@ class PublicView extends Component{
             experience:'Loading....',
             computerSkills:'Loading....',
             pageRefresh:0,
-            show_CV_with_pic:true,
+            show_CV_with_pic:false,
             show_CV_without_pic:false,
-            showStylishCV:false
+            showStylishCV:true
                 
         }
 
@@ -150,7 +150,7 @@ class PublicView extends Component{
 
 
       cvWithPic=()=>{
-        this.setState({show_CV_with_pic:true,show_CV_without_pic:false})
+        this.setState({show_CV_with_pic:true,showStylishCV:false,show_CV_without_pic:false})
 
         setTimeout(() => {
       
@@ -174,12 +174,14 @@ class PublicView extends Component{
 
 
       cvWithoutPic=()=>{
-        this.setState({show_CV_with_pic:false,show_CV_without_pic:true})
+        this.setState({show_CV_with_pic:false,showStylishCV:false, show_CV_without_pic:true})
       }
 
 
 
-
+      stylishCV=()=>{
+        this.setState({show_CV_with_pic:false,show_CV_without_pic:false, showStylishCV:true})
+      }
 
         
         
@@ -187,7 +189,9 @@ class PublicView extends Component{
     render(){
         return(
         <div className='container'>
-        <div>
+
+          {/* Below DIV is of CV with pic and without Pic */}
+        <div className={this.state.showStylishCV===false?'':'display'}>
 
 
             <br/><br/>
@@ -206,13 +210,13 @@ class PublicView extends Component{
 {/* image div */}
 <div className='row'>
     {/* first Column */}
-    <div className={this.state.show_CV_with_pic===true?'col s5 m4 l3':'display'}>
-<img src={this.state.image} alt='Picture Loading...' width='90%' height='27%' className='profile-image'/> <br/>
+    <div className={this.state.show_CV_with_pic===true?'col s4':'display'}>
+<img src={this.state.image} alt='Picture Loading...' width='100' height='100%' className='profile-image'/> <br/>
 
    </div>
 
     {/* second column */}
-   <div className={this.state.show_CV_with_pic===true?'col s7 m8 9':'display'}>
+   <div className={this.state.show_CV_with_pic===true?'col s8':'display'}>
        
        <span style={{fontSize:'140%'}}><b>Waqas Saleem</b></span><br/><hr/>
        <span style={{fontSize:'90%'}}>Contact: 0346-7605798</span><br/><hr/>
@@ -394,15 +398,34 @@ return <li key={ind}>
 
 
 <hr/>
-
-{/* Reference Div */}
-{/* <span style={{fontSize:'18px', color:'blue'}}><b>Documents Attached:</b></span><br/>
-<span>Following Documents can access/view by visiting  <i style={{fontSize:'11px'}}>https://profile-my.web.app</i> </span> */}
 </div>
 
 
 
-<p style={{textAlign:'center',letterSpacing:'15px'}}><abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.cvWithPic}>*</abbr><abbr title='CV Without Pic' style={{cursor:'pointer'}} onClick={this.cvWithoutPic}>*</abbr>  *  </p>
+
+
+
+
+
+
+
+
+
+
+
+{/* Below DIV is of Stylish CV */}
+<div className={this.state.showStylishCV===false?'display':''}>
+  Stylish CV
+</div>
+
+
+
+
+
+
+
+
+<p style={{textAlign:'center',letterSpacing:'15px'}}><abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.cvWithPic}>*</abbr><abbr title='CV Without Pic' style={{cursor:'pointer'}} onClick={this.cvWithoutPic}>*</abbr><abbr title='Stylish CV' style={{cursor:'pointer'}} onClick={this.stylishCV}>*</abbr> </p>
 
 
 
