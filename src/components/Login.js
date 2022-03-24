@@ -415,7 +415,66 @@ return <li key={ind}>
 
 {/* Below DIV is of Stylish CV */}
 <div className={this.state.showStylishCV===false?'display':''}>
-  Stylish CV
+          
+          <br/><br/>
+          {/* <br/><br/>
+            <div style={{backgroundColor:'blue', borderRadius:'15px'}}>
+            <h4 style={{textAlign:'center', margin:'0px',padding:'7px',color:'white'}}>Curriculum Vitae</h4>
+            <p style={{textAlign:'center',margin:'0px', color:'white'}}>https://profile-my.web.app</p>
+            </div>
+            <br/>   */}
+
+
+
+
+
+
+{/* Header & Name div */}
+<fieldset style={{margin:'0px'}}>
+<legend style={{textAlign:'center', fontSize:'40px', color:'green'}}><b>C.V</b></legend>
+<div className='row'>
+<div className='col s6' style={{border:'1px dotted green',padding:'8px',borderRadius:'9px',height:'150px',backgroundColor:'lightyellow'}}>
+<span style={{fontSize:'140%'}}><b>Waqas Saleem</b></span><br/>
+<span style={{fontSize:'90%'}}>Contact: 0346-7605798</span><br/>
+<span style={{fontSize:'90%'}}>waqas.mba86@gmail.com</span><br/>
+<span style={{fontSize:'90%'}}><b>Address: </b>P-4671/6, ST-7, Mansoorabad, Faisalabad</span>
+
+   </div>
+
+    {/* second column */}
+         <div className='col s6'>
+
+
+          <div style={{backgroundColor:'blue', borderRadius:'15px',height:'150px',paddingTop:'30px'}}>
+            <h5 style={{textAlign:'center', margin:'0px',padding:'7px',color:'white'}}>Curriculum Vitae</h5>
+            <p style={{textAlign:'center',margin:'0px', color:'white'}}>https://profile-my.web.app</p>
+          </div>
+
+
+   </div>
+   </div>
+   </fieldset>
+
+
+
+
+
+
+
+{/* Objective Div of stylishCV */}
+<br/>
+   <fieldset style={{borderRadius:'10px'}}>
+<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Objective</b></legend>
+{this.state.objective}
+</fieldset>
+
+
+
+
+
+
+
+  {/* last closing div tag of stylishCV */}
 </div>
 
 

@@ -121,3 +121,8 @@ tr:hover{
 td{
     padding: 3px !important;
 }
+
+
+div{
+    box-sizing: border-box;
+}
