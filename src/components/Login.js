@@ -37,6 +37,14 @@ class PublicView extends Component{
     }
 
 
+
+componentWillMount(){
+  firebase.database().ref('myImage').on('child_added' , (data)=> { 
+    this.setState({image:data.val()})
+      //  this.state.image.push(data.val())
+      }  )
+}
+
     
     async componentDidMount(){
         // var userId = firebase.auth().currentUser.uid;
@@ -45,10 +53,10 @@ class PublicView extends Component{
     var dataPromise = new Promise( (res,rej)=>{
     
     
-    firebase.database().ref('myImage').on('child_added' , (data)=> { 
-      this.setState({image:data.val()})
-        //  this.state.image.push(data.val())
-        }  )
+    // firebase.database().ref('myImage').on('child_added' , (data)=> { 
+    //   this.setState({image:data.val()})
+    //     //  this.state.image.push(data.val())
+    //     }  )
     
     
     
@@ -430,7 +438,7 @@ return <li key={ind}>
 
 
 {/* Header & Name div */}
-<fieldset style={{margin:'0px'}}>
+<fieldset style={{margin:'0px',borderRadius:'15px',border:'2px dotted brown'}}>
 <legend style={{textAlign:'center', fontSize:'40px', color:'green'}}><b>C.V</b></legend>
 <div className='row'>
 <div className='col s6' style={{border:'1px dotted green',padding:'8px',borderRadius:'9px',height:'150px',backgroundColor:'lightyellow'}}>
@@ -463,11 +471,97 @@ return <li key={ind}>
 
 {/* Objective Div of stylishCV */}
 <br/>
-   <fieldset style={{borderRadius:'10px'}}>
+   <fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
 <legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Objective</b></legend>
 {this.state.objective}
 </fieldset>
 
+
+
+
+
+
+
+<br/>
+{/* Education Div of stylishCV */}
+<fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
+<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Education</b></legend>
+
+
+
+<div className='row'>
+{/* first column of educationInfo */}
+<div className='col s8'>
+{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+return <div key={ind} style={{width:'99%', marginBottom:'5px', border:'1px solid gray', padding:'7px', height:'120px', backgroundColor:'lightblue',borderRadius:'10px'  }}>
+<b> {item.degree}</b><br/>
+<span>{item.university}</span><br/>
+<span>Passing Year: {item.passingYear}</span><br/>
+<span>Grade/Percentage: {item.grade}</span><br/>
+
+</div>
+
+})}
+</div>
+
+{/* first column of educationInfo */}
+<div className='col s4'>
+{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+  return <div key={ind} style={{width:'99%', marginBottom:'5px', padding:'5px', height:'120px',borderRadius:'5px',paddingTop:'25px'}}>
+  
+  <i style={{textDecoration:'non', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'> <span style={{fontSize:'9px'}}>View Certificate?</span> <br/> Click Here <br/></a></i><br/><br/>
+  </div>
+  
+  })}
+
+
+</div>
+
+</div>
+
+</fieldset>
+
+
+
+
+
+
+
+<br/><br/><br/>
+{/* Experience Div of stylishCV */}
+
+
+<fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
+<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Experience</b></legend>
+{this.state.organizationArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+
+
+  return <div key={ind}>
+      
+        <div style={{border:'1px dotted blue', padding:'10px', width:'50%', borderRadius:'15px',backgroundColor:'pink'}}>
+            <span className="card-title"><b>{item.designation}</b></span><br/>
+            <span><b>{item.organization}</b></span><br/>
+            <span><b>{item.period}</b></span><br/><br/>
+       </div>
+       
+
+<br/>
+            <span style={{textDecoration:'underline'}}><b>Job Description</b></span><br/>     
+            <ol>
+                {item.jobDescription.map((it,i)=>{
+                    return <li className={it.jd==='Job Description'?'display':''} style={{backgroundColor:'lightyellow', fontSize:'11px', paddingLeft:'5px'}}  key={i}>{it.jd}<hr/></li>
+                })}
+            </ol>
+         
+      
+    </div>
+  
+  
+  
+  
+  
+  })}
+  </fieldset>
 
 
 
