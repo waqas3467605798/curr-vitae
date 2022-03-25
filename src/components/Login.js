@@ -218,7 +218,7 @@ componentWillMount(){
 {/* Header & Name div */}
 <fieldset style={{margin:'0px',borderRadius:'15px',border:'2px dotted brown'}}>
 <legend className={this.state.showStylishCVwithPic===true?'display':''} style={{textAlign:'center', fontSize:'40px', color:'green'}}><b>C.V</b></legend>
-<legend className={this.state.showStylishCVwithPic===true?'':'display'} style={{textAlign:'center', fontSize:'25px', color:'green'}}><b>Curriculum Vitae</b><br/><span style={{fontSize:'12px'}}>https://profile-my.web.app</span></legend>
+<legend className={this.state.showStylishCVwithPic===true?'':'display'} style={{textAlign:'center', fontSize:'25px', color:'green'}}><b>Curriculum Vitae</b><br/><span style={{fontSize:'12px'}}>https://waqas-cv.web.app</span></legend>
 <div className='row'>
 <div className='col s6' style={{border:'1px dotted green',padding:'8px',borderRadius:'9px',height:'150px',backgroundColor:'lightyellow'}}>
 <span style={{fontSize:'140%'}}><b>Waqas Saleem</b></span><br/>
@@ -234,7 +234,7 @@ componentWillMount(){
 
           <div className={this.state.showStylishCVwithPic===true?'display':''} style={{backgroundColor:'blue', borderRadius:'15px',height:'150px',paddingTop:'30px'}}>
             <h5 style={{textAlign:'center', margin:'0px',padding:'7px',color:'white'}}>Curriculum Vitae</h5>
-            <p style={{textAlign:'center',margin:'0px', color:'white'}}>https://profile-my.web.app</p>
+            <p style={{textAlign:'center',margin:'0px', color:'white'}}>https://waqas-cv.web.app</p>
           </div>
 
 

@@ -6,13 +6,13 @@ import 'firebase/storage'
 
 
 var firebaseConfig = {
-  apiKey: "AIzaSyDW0lYiCdPy2O6xK3TF6HzcF0pvlFlAQEg",
-  authDomain: "profile-my.firebaseapp.com",
-  projectId: "profile-my",
-  storageBucket: "profile-my.appspot.com",
-  messagingSenderId: "30005742121",
-  appId: "1:30005742121:web:6fd408d2f37f1f0fc0ea38",
-  measurementId: "G-PG79YWDDR2"
+  apiKey: "AIzaSyCLGNS3-yZ3W-ZfcrlDZNv7D7XRVwCQq6E",
+  authDomain: "waqas-cv.firebaseapp.com",
+  projectId: "waqas-cv",
+  storageBucket: "waqas-cv.appspot.com",
+  messagingSenderId: "291779153268",
+  appId: "1:291779153268:web:64e895db2fd08ed834f021",
+  measurementId: "G-8E756D76QK"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
