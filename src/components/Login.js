@@ -480,11 +480,71 @@ return <li key={ind}>
 
 
 
+<br/>
+{/* Personal info Div */}
+<fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
+<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Personal Information</b></legend>
+
+{/* <table style={{padding:'10px', borderRadius:'10px', width:'100%', margin:'auto'}}><tbody>{this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr style={{borderRadius:'15px', backgroundColor:'lightblue'}} key={ind}><td><b>{item.head}</b></td><td>{item.ans}</td></tr>})}</tbody></table> */}
+{this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+  return <div style={{backgroundColor:'lightblue', margin:'4px'}}>
+      {/* <div> */}
+              <sapn className='personalInfoSpan'>{item.head}</sapn> 
+              <sapn className='personalInfoSpan'>{item.ans}</sapn>
+      {/* </div> */}
+        </div>
+})}
+
+
+</fieldset>
+
+
+
+
 
 
 
 
 <br/>
+{/* Education Div of stylishCV */}
+<fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
+<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Education</b></legend>
+
+
+
+<div>
+{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:'lightblue',borderRadius:'10px'  }}>
+<b> {item.degree}  </b>
+<span> From <u style={{color:'brown'}}> {item.university}</u></span>
+<span> in {item.passingYear}  </span>  =&gt;
+<i style={{textDecoration:'non', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'><span style={{fontSize:'9px', color:'blue'}}>Click Here to view Certificate?</span></a></i>
+{/* <span>Grade/Percentage: {item.grade}</span> */}
+
+</div>
+
+})}
+</div>
+
+
+
+</fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br/><br/><br/>
 {/* Experience Div of stylishCV */}
 
 
@@ -532,45 +592,6 @@ return <li key={ind}>
 
 
 
-<br/>
-{/* Education Div of stylishCV */}
-<fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
-<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Education</b></legend>
-
-
-
-{/* <div className='row'> */}
-{/* first column of educationInfo */}
-<div>
-{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:'lightblue',borderRadius:'10px'  }}>
-<b> {item.degree}  </b>
-<span> From <u style={{color:'brown'}}> {item.university}</u></span>
-<span> in {item.passingYear}  </span>  =&gt;
-<i style={{textDecoration:'non', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'><span style={{fontSize:'9px', color:'blue'}}>Click Here to view Certificate?</span></a></i>
-{/* <span>Grade/Percentage: {item.grade}</span> */}
-
-</div>
-
-})}
-</div>
-
-{/* second column of educationInfo */}
-{/* <div className='col s4'>
-{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-  return <div key={ind} style={{width:'99%', marginBottom:'5px', padding:'5px', height:'120px',borderRadius:'5px',paddingTop:'25px'}}>
-  
-  <i style={{textDecoration:'non', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'> <span style={{fontSize:'9px'}}>View Certificate?</span> <br/> Click Here <br/></a></i><br/><br/>
-  </div>
-  
-  })}
-
-
-</div> */}
-
-{/* </div> */}
-
-</fieldset>
 
 
 
