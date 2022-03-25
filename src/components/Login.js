@@ -482,66 +482,23 @@ return <li key={ind}>
 
 
 
+
+
 <br/>
-{/* Education Div of stylishCV */}
-<fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
-<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Education</b></legend>
-
-
-
-<div className='row'>
-{/* first column of educationInfo */}
-<div className='col s8'>
-{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-return <div key={ind} style={{width:'99%', marginBottom:'5px', border:'1px solid gray', padding:'7px', height:'120px', backgroundColor:'lightblue',borderRadius:'10px'  }}>
-<b> {item.degree}</b><br/>
-<span>{item.university}</span><br/>
-<span>Passing Year: {item.passingYear}</span><br/>
-<span>Grade/Percentage: {item.grade}</span><br/>
-
-</div>
-
-})}
-</div>
-
-{/* first column of educationInfo */}
-<div className='col s4'>
-{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-  return <div key={ind} style={{width:'99%', marginBottom:'5px', padding:'5px', height:'120px',borderRadius:'5px',paddingTop:'25px'}}>
-  
-  <i style={{textDecoration:'non', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'> <span style={{fontSize:'9px'}}>View Certificate?</span> <br/> Click Here <br/></a></i><br/><br/>
-  </div>
-  
-  })}
-
-
-</div>
-
-</div>
-
-</fieldset>
-
-
-
-
-
-
-
-<br/><br/><br/>
 {/* Experience Div of stylishCV */}
 
 
 <fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
-<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Experience</b></legend>
+<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Experience Record</b></legend>
 {this.state.organizationArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
 
 
   return <div key={ind}>
       
-        <div style={{border:'1px dotted blue', padding:'10px', width:'50%', borderRadius:'15px',backgroundColor:'pink'}}>
-            <span className="card-title"><b>{item.designation}</b></span><br/>
-            <span><b>{item.organization}</b></span><br/>
-            <span><b>{item.period}</b></span><br/><br/>
+        <div style={{border:'1px dotted blue', padding:'10px', borderRadius:'15px',backgroundColor:'pink'}}>
+            <span className="card-title"><b>{item.designation} =&gt; </b></span>
+            <span>{item.organization} =&gt; </span>
+            <span>{item.period}</span>
        </div>
        
 
@@ -557,11 +514,71 @@ return <div key={ind} style={{width:'99%', marginBottom:'5px', border:'1px solid
     </div>
   
   
-  
-  
-  
   })}
   </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br/>
+{/* Education Div of stylishCV */}
+<fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
+<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Education</b></legend>
+
+
+
+{/* <div className='row'> */}
+{/* first column of educationInfo */}
+<div>
+{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:'lightblue',borderRadius:'10px'  }}>
+<b> {item.degree}  </b>
+<span> From <u style={{color:'brown'}}> {item.university}</u></span>
+<span> in {item.passingYear}  </span>  =&gt;
+<i style={{textDecoration:'non', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'><span style={{fontSize:'9px', color:'blue'}}>Click Here to view Certificate?</span></a></i>
+{/* <span>Grade/Percentage: {item.grade}</span> */}
+
+</div>
+
+})}
+</div>
+
+{/* second column of educationInfo */}
+{/* <div className='col s4'>
+{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+  return <div key={ind} style={{width:'99%', marginBottom:'5px', padding:'5px', height:'120px',borderRadius:'5px',paddingTop:'25px'}}>
+  
+  <i style={{textDecoration:'non', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'> <span style={{fontSize:'9px'}}>View Certificate?</span> <br/> Click Here <br/></a></i><br/><br/>
+  </div>
+  
+  })}
+
+
+</div> */}
+
+{/* </div> */}
+
+</fieldset>
+
+
+
+
+
+
+
+
 
 
 
