@@ -28,8 +28,9 @@ class PublicView extends Component{
             experience:'Loading....',
             computerSkills:'Loading....',
             pageRefresh:0,
-            show_CV_with_pic:false,
-            show_CV_without_pic:false,
+            // show_CV_with_pic:false,
+            // show_CV_without_pic:false,
+            showStylishCVwithPic:false,
             showStylishCV:true
                 
         }
@@ -157,272 +158,53 @@ componentWillMount(){
 
 
 
-      cvWithPic=()=>{
-        this.setState({show_CV_with_pic:true,showStylishCV:false,show_CV_without_pic:false})
+      // cvWithPic=()=>{
+      //   this.setState({show_CV_with_pic:true,showStylishCV:false,show_CV_without_pic:false})
 
-        setTimeout(() => {
+      //   setTimeout(() => {
       
     
-          const inteId = setInterval(()=>{
-            this.setState({pageRefresh: this.state.pageRefresh+1})
-          },1000)
+      //     const inteId = setInterval(()=>{
+      //       this.setState({pageRefresh: this.state.pageRefresh+1})
+      //     },1000)
           
           
-          setTimeout(() => {
-            clearInterval(inteId);
-          }, 35000);
+      //     setTimeout(() => {
+      //       clearInterval(inteId);
+      //     }, 35000);
         
         
         
-        }, 1000);
+      //   }, 1000);
 
 
 
-      }
+      // }
 
 
-      cvWithoutPic=()=>{
-        this.setState({show_CV_with_pic:false,showStylishCV:false, show_CV_without_pic:true})
-      }
+      // cvWithoutPic=()=>{
+      //   this.setState({show_CV_with_pic:false,showStylishCV:false,showStylishCVwithPic:false, show_CV_without_pic:true})
+      // }
 
 
 
       stylishCV=()=>{
-        this.setState({show_CV_with_pic:false,show_CV_without_pic:false, showStylishCV:true})
+        this.setState({showStylishCVwithPic:false ,showStylishCV:true})
       }
 
         
-        
+      stylishCVwithPic =()=>{
+        this.setState({showStylishCV:true, showStylishCVwithPic:true})
+      }
 
     render(){
         return(
         <div className='container'>
 
           {/* Below DIV is of CV with pic and without Pic */}
-        <div className={this.state.showStylishCV===false?'':'display'}>
-
-
-            <br/><br/>
-            <div style={{backgroundColor:'lightgray'}}>
-            <h5 style={{textAlign:'center', margin:'0px',padding:'7px'}}>PERSONAL PROFILE</h5>
-            <p style={{textAlign:'center',margin:'0px'}}>https://profile-my.web.app</p>
-            </div>
-            <br/>
-
-
-
-
-
-
-
-{/* image div */}
-<div className='row'>
-    {/* first Column */}
-    <div className={this.state.show_CV_with_pic===true?'col s4':'display'}>
-<img src={this.state.image} alt='Picture Loading...' width='100' height='100%' className='profile-image'/> <br/>
-
-   </div>
-
-    {/* second column */}
-   <div className={this.state.show_CV_with_pic===true?'col s8':'display'}>
-       
-       <span style={{fontSize:'140%'}}><b>Waqas Saleem</b></span><br/><hr/>
-       <span style={{fontSize:'90%'}}>Contact: 0346-7605798</span><br/><hr/>
-       <span style={{fontSize:'90%'}}>waqas.mba86@gmail.com</span><br/><hr/>
-       <span style={{fontSize:'90%'}}>ST-7, P-4671/6, Mansoorabad, 66-Foota bazar, Faisalabad.</span><br/><hr/>
-       <span style={{fontSize:'90%'}}><b>web: </b> https://profile-my.web.app</span><hr/>
-   </div>
-
-
-
-   <div className={this.state.show_CV_with_pic===false?'col s12':'display'}>
-       
-       <span style={{fontSize:'140%'}}><b>Waqas Saleem</b></span><br/>
-       <span style={{fontSize:'90%'}}>Contact: 0346-7605798</span><br/>
-       <span style={{fontSize:'90%'}}>waqas.mba86@gmail.com</span><br/>
-       <span style={{fontSize:'90%'}}>ST-7, P-4671/6, Mansoorabad, 66-Foota bazar, Faisalabad.</span><br/>
-       <span style={{fontSize:'90%'}}><b>web: </b> https://profile-my.web.app</span>
-   </div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<hr/>
-{/* Objective Div */}
-<span style={{fontSize:'25px', color:'blue'}}><b>Objective</b></span>
-<p>{this.state.objective}</p>
-
-
-
-
-
-
-
-
-
-{/* Education Div */}
-<hr/>
-<br/>
-<span style={{fontSize:'25px', color:'blue'}}><b>Education</b></span>
-<div className='row'>
-{/* first column of educationInfo */}
-<div className='col s6'>
-{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-return <div className={item.order==='3' || item.order==='4'?'display':''} key={ind} style={{width:'100%', margin:'auto'}}>
-<b>{ind+1}) {item.degree}</b><br/>
-<span>{item.university}</span><br/>
-<span>Passing Year: {item.passingYear}</span><br/>
-<span>Grade/Percentage: {item.grade}</span><br/>
-<i style={{textDecoration:'underline', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'>View Degree/Certificate ? - Click Here</a></i><br/><br/>
-</div>
-
-})}
-</div>
-
-
-{/* second column of educationInfo */}
-<div className='col s6'>
-{this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-return <div className={item.order==='1' || item.order==='2'?'display':''} key={ind} style={{width:'95%', margin:'auto'}}>
-<b>{ind+1}) {item.degree}</b><br/>
-<span>{item.university}</span><br/>
-<span>Passing Year: {item.passingYear}</span><br/>
-<span>Grade/Percentage: {item.grade}</span><br/>
-<i style={{textDecoration:'underline', fontSize:'11px'}}><a href={item.degreeImageLink} target='_blank'>View Degree/Certificate ? - Click Here</a></i><br/><br/>
-</div>
-
-})}
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<hr/>
-<br/>
-{/* Div of Professional Experience */}
-<span style={{fontSize:'23px', color:'blue'}}><b>Professional Experience</b></span>
-
-{this.state.organizationArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-
-
-return <div key={ind}>
-    <div className="col s12 m6">
-      <div className="card blue-grey lighten-5">
-        <div className="card-content black-text">
-          <span className="card-title"><b>{item.designation}</b></span>
-          <span><b>{item.organization}</b></span><br/>
-          <span><b>{item.period}</b></span><br/><br/>
-          <span style={{textDecoration:'underline'}}><b>Job Description</b></span><br/>
-          <ol>
-              {item.jobDescription.map((it,i)=>{
-                  return <li className={it.jd==='Job Description'?'display':''} key={i}>{it.jd}</li>
-              })}
-          </ol>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-})}
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br/>
-{/* I.T Skills Div */}
-<span style={{fontSize:'23px', color:'blue'}}><b>Computer/I.T Skills</b></span>
-<ol>
-{this.state.computerSkillsArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-
-return <li key={ind}>
-        {item.skills}
-       </li>
-
-
-})}
-</ol>
-
-
-
-
-
-
-
-
-
-
-
-
-<hr/>
-{/* Personal info Div */}
-<span style={{fontSize:'23px', color:'blue'}}><b>Personal Info:</b></span>
-<table style={{width:'80%', backgroundColor:'lightyellow',margin:'auto'}}><tbody>{this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr key={ind}><td><b>{item.head}</b></td><td>{item.ans}</td></tr>})}</tbody></table>
-
-
-
-
-
-
-
-<hr/>
-{/* Reference Div */}
-<span style={{fontSize:'23px', color:'blue'}}><b>Reference:</b></span>
-<p>{this.state.reference}</p>
-
-
-
-
-
-
-<hr/>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {/* Below DIV is of Stylish CV */}
-<div className={this.state.showStylishCV===false?'display':''}>
+{/* <div className={this.state.showStylishCV===false?'display':''}> */}
           
           <br/><br/>
           {/* <br/><br/>
@@ -433,13 +215,10 @@ return <li key={ind}>
             <br/>   */}
 
 
-
-
-
-
 {/* Header & Name div */}
 <fieldset style={{margin:'0px',borderRadius:'15px',border:'2px dotted brown'}}>
-<legend style={{textAlign:'center', fontSize:'40px', color:'green'}}><b>C.V</b></legend>
+<legend className={this.state.showStylishCVwithPic===true?'display':''} style={{textAlign:'center', fontSize:'40px', color:'green'}}><b>C.V</b></legend>
+<legend className={this.state.showStylishCVwithPic===true?'':'display'} style={{textAlign:'center', fontSize:'25px', color:'green'}}><b>Curriculum Vitae</b><br/><span style={{fontSize:'12px'}}>https://profile-my.web.app</span></legend>
 <div className='row'>
 <div className='col s6' style={{border:'1px dotted green',padding:'8px',borderRadius:'9px',height:'150px',backgroundColor:'lightyellow'}}>
 <span style={{fontSize:'140%'}}><b>Waqas Saleem</b></span><br/>
@@ -453,10 +232,17 @@ return <li key={ind}>
          <div className='col s6'>
 
 
-          <div style={{backgroundColor:'blue', borderRadius:'15px',height:'150px',paddingTop:'30px'}}>
+          <div className={this.state.showStylishCVwithPic===true?'display':''} style={{backgroundColor:'blue', borderRadius:'15px',height:'150px',paddingTop:'30px'}}>
             <h5 style={{textAlign:'center', margin:'0px',padding:'7px',color:'white'}}>Curriculum Vitae</h5>
             <p style={{textAlign:'center',margin:'0px', color:'white'}}>https://profile-my.web.app</p>
           </div>
+
+
+
+          <div className={this.state.showStylishCVwithPic===true?'':'display'} style={{borderRadius:'15px',height:'150px', textAlign:'center'}}>
+          <img src={this.state.image} alt='Picture Loading...' width='50%' height='90%' className='profile-image'/>
+          </div>  
+
 
 
    </div>
@@ -473,7 +259,9 @@ return <li key={ind}>
 <br/>
    <fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
 <legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Objective</b></legend>
+<div style={{backgroundColor:'lightblue', borderRadius:'10px', border:'1px solid gray', padding:'8px'}}>
 {this.state.objective}
+</div>
 </fieldset>
 
 
@@ -487,9 +275,9 @@ return <li key={ind}>
 
 {/* <table style={{padding:'10px', borderRadius:'10px', width:'100%', margin:'auto'}}><tbody>{this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr style={{borderRadius:'15px', backgroundColor:'lightblue'}} key={ind}><td><b>{item.head}</b></td><td>{item.ans}</td></tr>})}</tbody></table> */}
 {this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-  return <div style={{backgroundColor:'lightblue', margin:'4px'}}>
+  return <div style={{backgroundColor:'lightblue', margin:'4px', borderRadius:'10px', border:'1px solid gray'}}>
       {/* <div> */}
-              <sapn className='personalInfoSpan'>{item.head}</sapn> 
+              <sapn className='personalInfoSpan'><b>{item.head}</b></sapn> 
               <sapn className='personalInfoSpan'>{item.ans}</sapn>
       {/* </div> */}
         </div>
@@ -557,18 +345,18 @@ return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', paddi
       
         <div style={{border:'1px dotted blue', padding:'10px', borderRadius:'15px',backgroundColor:'pink'}}>
             <span className="card-title"><b>{item.designation} =&gt; </b></span>
-            <span>{item.organization} =&gt; </span>
+            <span><u style={{color:'blue'}}>{item.organization}</u> =&gt; </span>
             <span>{item.period}</span>
        </div>
        
 
 <br/>
             <span style={{textDecoration:'underline'}}><b>Job Description</b></span><br/>     
-            <ol>
-                {item.jobDescription.map((it,i)=>{
+            <ul>
+                {item.jobDescription.sort((a, b) => (a.order > b.order) ? 1 : -1).map((it,i)=>{
                     return <li className={it.jd==='Job Description'?'display':''} style={{backgroundColor:'lightyellow', fontSize:'11px', paddingLeft:'5px'}}  key={i}>{it.jd}<hr/></li>
                 })}
-            </ol>
+            </ul>
          
       
     </div>
@@ -585,6 +373,24 @@ return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', paddi
 
 
 
+<br/><br/><br/>
+{/* div of IT Skills of stylishCV */}
+  <fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
+<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>I.T Skills</b></legend>
+
+
+{this.state.computerSkillsArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
+
+return <div style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:'lightblue',borderRadius:'10px'  }} key={ind}>
+        {item.skills}
+       </div>
+
+
+})}
+
+
+
+</fieldset>
 
 
 
@@ -593,9 +399,12 @@ return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', paddi
 
 
 
-
-
-
+<br/><br/><br/>
+{/* Reference div of stylish CV */}
+<fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
+<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Reference</b></legend>
+<p style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:'lightblue',borderRadius:'10px'  }}>{this.state.reference}</p>
+</fieldset>
 
 
 
@@ -607,18 +416,14 @@ return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', paddi
 
 
   {/* last closing div tag of stylishCV */}
-</div>
 
 
 
 
 
+<p style={{textAlign:'center',letterSpacing:'15px'}}><abbr title='Stylish CV' style={{cursor:'pointer'}} onClick={this.stylishCV}>*</abbr><abbr title='Stylish CV with Pic' style={{cursor:'pointer'}} onClick={this.stylishCVwithPic}>*</abbr> </p>
 
-
-
-<p style={{textAlign:'center',letterSpacing:'15px'}}><abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.cvWithPic}>*</abbr><abbr title='CV Without Pic' style={{cursor:'pointer'}} onClick={this.cvWithoutPic}>*</abbr><abbr title='Stylish CV' style={{cursor:'pointer'}} onClick={this.stylishCV}>*</abbr> </p>
-
-
+{/* <abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.cvWithPic}>*</abbr><abbr title='CV Without Pic' style={{cursor:'pointer'}} onClick={this.cvWithoutPic}>*</abbr> */}
 
         </div>
         )
