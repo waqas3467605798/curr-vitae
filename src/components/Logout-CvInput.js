@@ -31,6 +31,8 @@ import firebase from './Fire'
         computerSkills:'',
         computerOrder:'',
         reference:'',
+        onlineDocLink:'',
+        docName:'',
         pageRefresh:0
       }
 
@@ -238,9 +240,27 @@ firebase.database().ref('reference').set({ref: this.state.reference})
 
 
 
+onlineDoc=()=>{
+  var obj = {};
+  obj.link = this.state.onlineDocLink
+  obj.docName = this.state.docName
+  var key = firebase.database().ref('onlineDocs').push().key
+  obj.key = key;
+
+  firebase.database().ref('onlineDocs').child(key).set(obj)
+
+  alert('saved successfully')
+this.setState({docName:'',onlineDocLink:''})
+}
+
+
     Logout= ()=>{
         firebase.auth().signOut();
     }
+
+
+
+
 
     render(){
         return(
@@ -320,6 +340,15 @@ firebase.database().ref('reference').set({ref: this.state.reference})
           <button onClick={this.saveReference}> Save </button>
 
 
+
+
+
+          <br/><br/><br/>
+
+          <span style={{color:'blue'}}><b>Online Documents</b></span>
+          <input type='text' name='onlineDocLink' value={this.state.onlineDocLink} onChange={this.changeHandler} placeholder='Image Link of Online Doc'/>
+          <input type='text' name='docName' value={this.state.docName} onChange={this.changeHandler} placeholder='Document Name'/>
+          <button onClick={this.onlineDoc}> Save </button>
 
 
           </div>

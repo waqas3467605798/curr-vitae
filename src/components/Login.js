@@ -21,6 +21,7 @@ class PublicView extends Component{
             educationInfoArray:[],
             organizationArray:[],
             computerSkillsArray:[],
+            onlineDocsArray:[],
             // pageLoading:false,
             objectiveHeading:'Loading....',
             personalInfoHeading:'Loading....',
@@ -79,7 +80,8 @@ componentWillMount(){
       personalInfo:[],
       educationInfo:[],
       organization:[],
-      computerSkill:[]
+      computerSkill:[],
+      onlineDocs:[]
     
     }
     
@@ -112,7 +114,16 @@ componentWillMount(){
              dataObject.computerSkill.push(data.val())
             }  )
     
-    
+   
+            
+
+            firebase.database().ref('onlineDocs').on('child_added' , (data)=> { 
+              //  this.state.educationInfoArray.push(data.val())
+               dataObject.onlineDocs.push(data.val())
+              }  )
+     
+
+
     
     res(dataObject)
     
@@ -124,7 +135,7 @@ componentWillMount(){
     
     
     dataPromise.then( (dataObj)=>{
-    this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo, organizationArray:dataObj.organization , computerSkillsArray:dataObj.computerSkill,  objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information', experience:'Experience Record', computerSkills:'Computer/IT Skills'})
+    this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo, organizationArray:dataObj.organization , computerSkillsArray:dataObj.computerSkill, onlineDocsArray:dataObj.onlineDocs, objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information', experience:'Experience Record', computerSkills:'Computer/IT Skills'})
     
     
     
@@ -332,7 +343,7 @@ return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', paddi
 
 
 
-<br/><br/><br/>
+<br/><br/><br/><br/>
 {/* Experience Div of stylishCV */}
 
 
@@ -373,7 +384,7 @@ return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', paddi
 
 
 
-<br/><br/><br/>
+<br/><br/><br/><br/><br/>
 {/* div of IT Skills of stylishCV */}
   <fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
 <legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>I.T Skills</b></legend>
@@ -396,15 +407,37 @@ return <div style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', 
 
 
 
-
-
-
 <br/><br/><br/>
 {/* Reference div of stylish CV */}
 <fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
 <legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Reference</b></legend>
 <p style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:'lightblue',borderRadius:'10px'  }}>{this.state.reference}</p>
 </fieldset>
+
+
+
+
+
+
+
+<br/><br/><br/>
+{/* Reference div of stylish CV */}
+<fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
+<legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Online Documents</b></legend>
+<p>The following Documents can view/verify online, please visit <u style={{color:'blue'}}>https://waqas-cv.web.app</u>  and Click on one of the following document as you need. </p>
+
+<ul>
+  {this.state.onlineDocsArray.map((item,ind)=>{
+    return <li key={ind}>
+           <a href={item.link} target='_blank'> {item.docName}</a>
+          </li>
+  })}
+</ul>
+
+
+</fieldset>
+
+
 
 
 
