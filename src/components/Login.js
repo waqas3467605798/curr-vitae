@@ -32,7 +32,8 @@ class PublicView extends Component{
             // show_CV_with_pic:false,
             // show_CV_without_pic:false,
             showStylishCVwithPic:false,
-            showStylishCV:true
+            showStylishCV:true,
+            simpleCV:false
                 
         }
 
@@ -200,13 +201,21 @@ componentWillMount(){
 
 
       stylishCV=()=>{
-        this.setState({showStylishCVwithPic:false ,showStylishCV:true})
+        this.setState({showStylishCVwithPic:false ,simpleCV:false, showStylishCV:true})
       }
 
         
       stylishCVwithPic =()=>{
-        this.setState({showStylishCV:true, showStylishCVwithPic:true})
+        this.setState({showStylishCV:true, simpleCV:false, showStylishCVwithPic:true})
       }
+
+      simpleCV=()=>{
+        this.setState({showStylishCV:true, simpleCV:true, showStylishCVwithPic:false})
+      }
+
+
+
+
 
     render(){
         return(
@@ -243,9 +252,9 @@ componentWillMount(){
          <div className='col s6'>
 
 
-          <div className={this.state.showStylishCVwithPic===true?'display':''} style={{backgroundColor:'blue', borderRadius:'15px',height:'150px',paddingTop:'30px'}}>
-            <h5 style={{textAlign:'center', margin:'0px',padding:'7px',color:'white'}}>Curriculum Vitae</h5>
-            <p style={{textAlign:'center',margin:'0px', color:'white'}}>https://waqas-cv.web.app</p>
+          <div className={this.state.showStylishCVwithPic===true?'display':''} style={{backgroundColor:this.state.simpleCV===true?'':'', borderRadius:'15px',height:'150px',paddingTop:'30px'}}>
+            <h5 style={{textAlign:'center', margin:'0px',padding:'7px',color:this.state.simpleCV===true?'':'blue'}}>Curriculum Vitae</h5>
+            <p style={{textAlign:'center',margin:'0px', color:this.state.simpleCV===true?'':'blue'}}>https://waqas-cv.web.app</p>
           </div>
 
 
@@ -270,7 +279,7 @@ componentWillMount(){
 <br/>
    <fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
 <legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Objective</b></legend>
-<div style={{backgroundColor:'lightblue', borderRadius:'10px', border:'1px solid gray', padding:'8px'}}>
+<div style={{backgroundColor:this.state.simpleCV===true?'':'lightblue', borderRadius:'10px', border:'1px solid gray', padding:'8px'}}>
 {this.state.objective}
 </div>
 </fieldset>
@@ -286,7 +295,7 @@ componentWillMount(){
 
 {/* <table style={{padding:'10px', borderRadius:'10px', width:'100%', margin:'auto'}}><tbody>{this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{return <tr style={{borderRadius:'15px', backgroundColor:'lightblue'}} key={ind}><td><b>{item.head}</b></td><td>{item.ans}</td></tr>})}</tbody></table> */}
 {this.state.personalInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-  return <div style={{backgroundColor:'lightblue', margin:'4px', borderRadius:'10px', border:'1px solid gray'}}>
+  return <div style={{backgroundColor:this.state.simpleCV===true?'':'lightblue', margin:'4px', borderRadius:'10px', border:'1px solid gray'}}>
       {/* <div> */}
               <sapn className='personalInfoSpan'><b>{item.head}</b></sapn> 
               <sapn className='personalInfoSpan'>{item.ans}</sapn>
@@ -313,7 +322,7 @@ componentWillMount(){
 
 <div>
 {this.state.educationInfoArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
-return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:'lightblue',borderRadius:'10px'  }}>
+return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:this.state.simpleCV===true?'':'lightblue',borderRadius:'10px'  }}>
 <b> {item.degree}  </b>
 <span> From <u style={{color:'brown'}}> {item.university}</u></span>
 <span> in {item.passingYear}  </span>  =&gt;
@@ -354,7 +363,7 @@ return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', paddi
 
   return <div key={ind}>
       
-        <div style={{border:'1px dotted blue', padding:'10px', borderRadius:'15px',backgroundColor:'pink'}}>
+        <div style={{border:'1px dotted blue', padding:'10px', borderRadius:'15px',backgroundColor:this.state.simpleCV===true?'':'pink'}}>
             <span className="card-title"><b>{item.designation} =&gt; </b></span>
             <span><u style={{color:'blue'}}>{item.organization}</u> =&gt; </span>
             <span>{item.period}</span>
@@ -365,7 +374,7 @@ return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', paddi
             <span style={{textDecoration:'underline'}}><b>Job Description</b></span><br/>     
             <ul>
                 {item.jobDescription.sort((a, b) => (a.order > b.order) ? 1 : -1).map((it,i)=>{
-                    return <li className={it.jd==='Job Description'?'display':''} style={{backgroundColor:'lightyellow', fontSize:'11px', paddingLeft:'5px'}}  key={i}>{it.jd}<hr/></li>
+                    return <li className={it.jd==='Job Description'?'display':''} style={{backgroundColor:this.state.simpleCV===true?'':'lightyellow', fontSize:'11px', paddingLeft:'5px'}}  key={i}>{it.jd}<hr/></li>
                 })}
             </ul>
          
@@ -392,7 +401,7 @@ return <div key={ind} style={{marginBottom:'5px', border:'1px solid gray', paddi
 
 {this.state.computerSkillsArray.sort((a, b) => (a.order > b.order) ? 1 : -1).map((item,ind)=>{
 
-return <div style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:'lightblue',borderRadius:'10px'  }} key={ind}>
+return <div style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:this.state.simpleCV===true?'':'lightblue',borderRadius:'10px'  }} key={ind}>
         {item.skills}
        </div>
 
@@ -411,7 +420,7 @@ return <div style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', 
 {/* Reference div of stylish CV */}
 <fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
 <legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Reference</b></legend>
-<p style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:'lightblue',borderRadius:'10px'  }}>{this.state.reference}</p>
+<p style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', backgroundColor:this.state.simpleCV===true?'':'lightblue',borderRadius:'10px'  }}>{this.state.reference}</p>
 </fieldset>
 
 
@@ -454,7 +463,7 @@ return <div style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', 
 
 
 
-<p style={{textAlign:'center',letterSpacing:'15px'}}><abbr title='CV without pic' style={{cursor:'pointer'}} onClick={this.stylishCV}>*</abbr><abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.stylishCVwithPic}>*</abbr> </p>
+<p style={{textAlign:'center',letterSpacing:'15px'}}><abbr title='CV without pic' style={{cursor:'pointer'}} onClick={this.stylishCV}>*</abbr><abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.stylishCVwithPic}>*</abbr><abbr title='Simple CV' style={{cursor:'pointer'}} onClick={this.simpleCV}>*</abbr> </p>
 
 {/* <abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.cvWithPic}>*</abbr><abbr title='CV Without Pic' style={{cursor:'pointer'}} onClick={this.cvWithoutPic}>*</abbr> */}
 

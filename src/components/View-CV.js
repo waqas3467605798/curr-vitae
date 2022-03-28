@@ -18,6 +18,7 @@ class MyDocs extends Component{
       educationInfoArray:[],
       organizationArray:[],
       computerSkillsArray:[],
+      onlineDocsArray:[],
       // pageLoading:false,
       objectiveHeading:'Loading....',
       personalInfoHeading:'Loading....',
@@ -63,7 +64,8 @@ var dataObject = {
   personalInfo:[],
   educationInfo:[],
   organization:[],
-  computerSkill:[]
+  computerSkill:[],
+  onlineDocs:[]
 
 }
 
@@ -98,6 +100,14 @@ firebase.database().ref('educationInfo').on('child_added' , (data)=> {
 
 
 
+
+        firebase.database().ref('onlineDocs').on('child_added' , (data)=> { 
+          //  this.state.educationInfoArray.push(data.val())
+           dataObject.onlineDocs.push(data.val())
+          }  )
+
+
+
 res(dataObject)
 
 
@@ -108,7 +118,7 @@ res(dataObject)
 
 
 dataPromise.then( (dataObj)=>{
-this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo, organizationArray:dataObj.organization , computerSkillsArray:dataObj.computerSkill,  objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information', experience:'Experience Record', computerSkills:'Computer/IT Skills'})
+this.setState({personalInfoArray:dataObj.personalInfo, educationInfoArray:dataObj.educationInfo, organizationArray:dataObj.organization , computerSkillsArray:dataObj.computerSkill,onlineDocsArray:dataObj.onlineDocs,objectiveHeading:'Objective', personalInfoHeading:'Personal Information', educationInfoHeading:'Education Information', experience:'Experience Record', computerSkills:'Computer/IT Skills'})
 
 
 
@@ -545,6 +555,74 @@ editItSkills = (i)=>{
 
 
 
+deleteOnlineDocs=(i)=>{
+  
+    var delKey = prompt("write 'Y' and Press OK")
+  
+    if(delKey === 'Y'){
+    var reqObj = this.state.onlineDocsArray[i]
+    var objKey = reqObj.key
+    
+  
+  
+
+    //for delete in firebase
+    firebase.database().ref('onlineDocs').child(objKey).remove()
+    //code ended
+  
+  
+    //for delete updation in state
+    this.state.onlineDocsArray.splice(i,1) //for test delete
+    //Code ended
+  
+  
+    // this.setState({ledgerDeleteUpdate:true, sum:[], deleteRefresh:true})
+      alert('Deleted successfully')
+    }else{
+        alert('You have entered Wrong key') 
+      }
+  }
+
+
+
+
+
+
+
+editOnlineDocs=(i)=>{
+  var reqObj = this.state.onlineDocsArray[i]
+var key = reqObj.key
+
+
+var editDocName = prompt('Please Document Name',reqObj.docName)
+if(editDocName === null){
+  editDocName = reqObj.docName
+}
+
+
+
+var editLink = prompt('Please edit Link',reqObj.link)
+if(editLink === null){
+  editLink = reqObj.link
+}
+
+
+
+
+reqObj.docName = editDocName.replace(/  +/g, ' ').trim();
+reqObj.link = editLink.replace(/  +/g, ' ').trim()
+
+
+
+
+firebase.database().ref('onlineDocs').child(key).set(reqObj)
+
+
+this.state.onlineDocsArray.splice(i,1,reqObj)
+
+
+alert('Edited successfully')
+}
 
 
 
@@ -590,6 +668,27 @@ editItSkills = (i)=>{
 <br/>
         <span style={{color:'blue'}}><b>Reference</b></span>
         <p>{this.state.reference}</p>
+
+
+
+<br/>
+
+
+
+
+{this.state.onlineDocsArray.map((item,ind)=>{
+    return <div style={{backgroundColor:'lightblue', padding:'8px',margin:'5px'}}>
+            
+            <p>{item.docName}</p>
+            <p>{item.link}</p>
+            <p><a href='#' style={{fontSize:'16px', color:'red'}} className="material-icons" onClick={()=>this.deleteOnlineDocs(ind)}>delete</a><a href='#' style={{fontSize:'16px', color:'green'}} className="small material-icons" onClick={()=> this.editOnlineDocs(ind)}>edit</a></p>
+           </div>
+
+ } )}
+
+
+
+
 
 
 
