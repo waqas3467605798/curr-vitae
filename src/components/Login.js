@@ -421,14 +421,14 @@ return <div style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', 
 
 
 <br/><br/><br/>
-{/* Reference div of stylish CV */}
+{/*  div of online documents stylish CV */}
 <fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
 <legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Online Documents</b></legend>
 <p>The following Documents can view/verify online, please visit <u style={{color:'blue'}}>https://waqas-cv.web.app</u>  and Click on one of the following document as you need. </p>
 
 <ul>
   {this.state.onlineDocsArray.map((item,ind)=>{
-    return <li key={ind}>
+    return <li key={ind} className='listItemOfOnlineDocs'>
            <a href={item.link} target='_blank'> {item.docName}</a>
           </li>
   })}
@@ -454,7 +454,7 @@ return <div style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', 
 
 
 
-<p style={{textAlign:'center',letterSpacing:'15px'}}><abbr title='Stylish CV' style={{cursor:'pointer'}} onClick={this.stylishCV}>*</abbr><abbr title='Stylish CV with Pic' style={{cursor:'pointer'}} onClick={this.stylishCVwithPic}>*</abbr> </p>
+<p style={{textAlign:'center',letterSpacing:'15px'}}><abbr title='CV without pic' style={{cursor:'pointer'}} onClick={this.stylishCV}>*</abbr><abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.stylishCVwithPic}>*</abbr> </p>
 
 {/* <abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.cvWithPic}>*</abbr><abbr title='CV Without Pic' style={{cursor:'pointer'}} onClick={this.cvWithoutPic}>*</abbr> */}
 
@@ -683,7 +683,7 @@ Contact: 0346-7605798 Email: waqas_mba86@yahoo.com
         <div>
         <PublicView ref={componentRef}/>
         <br/><br/><br/>
-        <div className='container'><a id='printButton' onClick={handlePrint}>PDF or Print CV</a></div>
+        <a id='printButton' onClick={handlePrint}>PDF/Print CV</a>
         <br/><br/><br/><br/>
         <LoginCompo />
     
