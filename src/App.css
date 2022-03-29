@@ -117,7 +117,7 @@ tr:hover{
     cursor: pointer;
     position: fixed;
     left: 0px;
-    bottom: 20px;
+    bottom: 35px;
     border: 1px dotted red;
     padding: 4px;
     border-radius: 3px;
@@ -138,8 +138,8 @@ div{
 
 .personalInfoSpan{
     display: inline-block;
-    width: 45%;
-    padding-left: 15px;
+    width: 49%;
+    padding-left: 11px;
 }
 
 

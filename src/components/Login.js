@@ -33,7 +33,9 @@ class PublicView extends Component{
             // show_CV_without_pic:false,
             showStylishCVwithPic:false,
             showStylishCV:true,
-            simpleCV:false
+            simpleCV:false,
+            loadingFromFirebase:1,
+            seemsInternetIsSlow:''
                 
         }
 
@@ -166,6 +168,40 @@ componentWillMount(){
     } )
     
     
+
+
+
+
+    setTimeout(()=>{
+      this.setState({loadingFromFirebase:0})
+    
+    setTimeout(()=>{
+      firebase.database().ref('loadingDefaultValue').on('child_added' , (data)=> {
+        this.setState({loadingFromFirebase:data.val()})
+      }  )
+    },900)
+    
+
+
+
+    setTimeout(()=>{
+      this.setState({seemsInternetIsSlow:'Seems internet speed is slow, try again later'})
+    },8000)
+
+
+
+
+    
+    },200)
+
+
+
+
+
+
+
+
+
       }
 
 
@@ -219,32 +255,20 @@ componentWillMount(){
 
     render(){
         return(
-        <div className='container'>
+<div>
+        <div className={this.state.loadingFromFirebase===0?'display':'container'}>
 
-          {/* Below DIV is of CV with pic and without Pic */}
-
-{/* Below DIV is of Stylish CV */}
-{/* <div className={this.state.showStylishCV===false?'display':''}> */}
           
-          <br/><br/>
-          {/* <br/><br/>
-            <div style={{backgroundColor:'blue', borderRadius:'15px'}}>
-            <h4 style={{textAlign:'center', margin:'0px',padding:'7px',color:'white'}}>Curriculum Vitae</h4>
-            <p style={{textAlign:'center',margin:'0px', color:'white'}}>https://profile-my.web.app</p>
-            </div>
-            <br/>   */}
-
-
 {/* Header & Name div */}
 <fieldset style={{margin:'0px',borderRadius:'15px',border:'2px dotted brown'}}>
 <legend className={this.state.showStylishCVwithPic===true?'display':''} style={{textAlign:'center', fontSize:'40px', color:'green'}}><b>C.V</b></legend>
-<legend className={this.state.showStylishCVwithPic===true?'':'display'} style={{textAlign:'center', fontSize:'25px', color:'green'}}><b>Curriculum Vitae</b><br/><span style={{fontSize:'12px'}}>https://waqas-cv.web.app</span></legend>
+<legend className={this.state.showStylishCVwithPic===true?'':'display'} style={{textAlign:'center', fontSize:'22px', color:'green'}}><b>Curriculum Vitae</b><br/><span style={{fontSize:'10px'}}>https://waqas-cv.web.app</span></legend>
 <div className='row'>
 <div className='col s6' style={{border:'1px dotted green',padding:'8px',borderRadius:'9px',height:'150px',backgroundColor:'lightyellow'}}>
 <span style={{fontSize:'140%'}}><b>Waqas Saleem</b></span><br/>
 <span style={{fontSize:'90%'}}>Contact: 0346-7605798</span><br/>
 <span style={{fontSize:'90%'}}>waqas.mba86@gmail.com</span><br/>
-<span style={{fontSize:'90%'}}><b>Address: </b>P-4671/6, ST-7, Mansoorabad, Faisalabad</span>
+<span style={{fontSize:'90%'}}><b>Address: </b>P-4671, ST-7, Mansoorabad, Fsd.</span>
 
    </div>
 
@@ -276,7 +300,7 @@ componentWillMount(){
 
 
 {/* Objective Div of stylishCV */}
-<br/>
+<br/><br/>
    <fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
 <legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Objective</b></legend>
 <div style={{backgroundColor:this.state.simpleCV===true?'':'lightblue', borderRadius:'10px', border:'1px solid gray', padding:'8px'}}>
@@ -288,7 +312,7 @@ componentWillMount(){
 
 
 
-<br/>
+<br/><br/>
 {/* Personal info Div */}
 <fieldset style={{borderRadius:'10px', border:'1px solid brown'}}>
 <legend style={{fontSize:'20px', color:'green',marginLeft:'20px'}}><b>Personal Information</b></legend>
@@ -466,6 +490,21 @@ return <div style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', 
 <p style={{textAlign:'center',letterSpacing:'15px'}}><abbr title='CV without pic' style={{cursor:'pointer'}} onClick={this.stylishCV}>*</abbr><abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.stylishCVwithPic}>*</abbr><abbr title='Simple CV' style={{cursor:'pointer'}} onClick={this.simpleCV}>*</abbr> </p>
 
 {/* <abbr title='CV with Pic' style={{cursor:'pointer'}} onClick={this.cvWithPic}>*</abbr><abbr title='CV Without Pic' style={{cursor:'pointer'}} onClick={this.cvWithoutPic}>*</abbr> */}
+
+
+
+
+</div>
+
+
+<div className={this.state.loadingFromFirebase===0?'container':'display'}>
+  <br/><br/><br/>
+  <span style={{color:'green',fontSize:'23px'}}>Loading.....</span><br/>
+  <span style={{color:'green',fontSize:'20px'}}>Please Wait....</span><br/>
+  <span style={{color:'red'}}>{this.state.seemsInternetIsSlow}</span>
+</div>
+
+
 
         </div>
         )

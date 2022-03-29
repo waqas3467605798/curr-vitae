@@ -33,6 +33,7 @@ import firebase from './Fire'
         reference:'',
         onlineDocLink:'',
         docName:'',
+        loadingDefaultValue:'',
         pageRefresh:0
       }
 
@@ -254,9 +255,22 @@ this.setState({docName:'',onlineDocLink:''})
 }
 
 
+
+
+
+saveLoadingDefaultValue=()=>{
+  firebase.database().ref('loadingDefaultValue').set({defaultValue:this.state.loadingDefaultValue})
+  }
+
+
+
+
+
     Logout= ()=>{
         firebase.auth().signOut();
     }
+
+
 
 
 
@@ -351,8 +365,27 @@ this.setState({docName:'',onlineDocLink:''})
           <button onClick={this.onlineDoc}> Save </button>
 
 
+
+
+<br/><br/><br/>
+
+          <span style={{color:'blue'}}><b>Loading Default value</b></span>
+          <input type='Number' name='loadingDefaultValue' value={this.state.loadingDefaultValue} placeholder='Loading default value' onChange={this.changeHandler}/>
+          <button onClick={this.saveLoadingDefaultValue}>Save</button>
+
+
+
+
+
+
+
           </div>
          
+
+
+
+
+
 
 
 
