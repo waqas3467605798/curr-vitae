@@ -499,8 +499,29 @@ return <div style={{marginBottom:'5px', border:'1px solid gray', padding:'7px', 
 
 <div className={this.state.loadingFromFirebase===0?'container':'display'}>
   <br/><br/><br/>
-  <span style={{color:'green',fontSize:'23px'}}>Loading.....</span><br/>
+  {/* <span style={{color:'green',fontSize:'23px'}}>Loading.....</span><br/> */}
+  
   <span style={{color:'green',fontSize:'20px'}}>Please Wait....</span><br/>
+
+{/* below is pre-loader code */}
+  <div class="preloader-wrapper active">
+    <div class="spinner-layer spinner-red-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+  
+
+
+  
+  
+  
+  
   <span style={{color:'red'}}>{this.state.seemsInternetIsSlow}</span>
 </div>
 
